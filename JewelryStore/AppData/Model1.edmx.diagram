@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9532105a1e12442ab64e3d1fbd4d7fef" Name="Diagram1" ZoomLevel="40">
+        <EntityTypeShape EntityType="JewelryStoreModel.Jewelry" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.JewelryTip" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.Material" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.OrderItem" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.Role" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.StatusOrder" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.Stone" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.Supplier" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JewelryStoreModel.User" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Jewelry_JewelryTip" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Jewelry_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Jewelry_Stone" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Jewelry_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Order_Jewelry" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_OrderItem_Jewelry" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Order_StatusOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_OrderItem_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="JewelryStoreModel.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
