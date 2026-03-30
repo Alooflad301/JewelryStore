@@ -13,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace JewelryStore
+namespace JewelryStore.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для PageReg.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PageReg : Page
     {
-        public MainWindow()
+        public PageReg()
         {
             InitializeComponent();
-            AppData.AppConnect.model0db = new AppData.JewelryStoreEntities();
-            AppData.AppFrame.framemain = MainFrame;
-            MainFrame.Navigate(new Pages.PageAftoriz());
-            
         }
     }
 }

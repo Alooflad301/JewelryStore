@@ -1,0 +1,32 @@
+﻿<Page x:Class="JewelryStore.Pages.PageAftoriz"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JewelryStore.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageAftoriz">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Pages/Mops.jpg"/>
+        </Grid.Background>
+        <Label Content="Авторизация" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="48" Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="221,132,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="217,217,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
+        <Button Content="Потвердить" HorizontalAlignment="Left" Margin="341,292,0,0" VerticalAlignment="Top" Height="31" Width="100" FontFamily="Segoe Print" Foreground="#FFFFD305" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button Content="Регистрация" HorizontalAlignment="Left" Margin="341,328,0,0" VerticalAlignment="Top" Height="31" Width="100" FontFamily="Segoe Print" Foreground="#FFFFD305" Background="{x:Null}" BorderBrush="{x:Null}">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <TextBox HorizontalAlignment="Center" Margin="0,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="21" FontFamily="Segoe Print" Background="{x:Null}"/>
+        <PasswordBox HorizontalAlignment="Center" Margin="0,261,0,0" VerticalAlignment="Top" Width="348" FontFamily="Segoe Print" Background="{x:Null}"/>
+    </Grid>
+</Page>
