@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JewelryStore"
         mc:Ignorable="d"
-        Title="Ювелирный магазин" Height="450" Width="800">
+        Title="Ювелирный магазин" Height="500" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame"/>
+        <Frame x:Name="MainFrame" Navigated="MainFrame_Navigated"/>
     </Grid>
 </Window>

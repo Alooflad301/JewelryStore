@@ -5,28 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JewelryStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="400" d:DesignWidth="800"
       Title="PageAftoriz">
 
-    <Grid>
+    <Grid Loaded="Aftor_Loaded">
         <Grid.Background>
-            <ImageBrush ImageSource="/Pages/Mops.jpg"/>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF8DCEEA"/>
+                <GradientStop Color="#FFA2ABDC" Offset="1"/>
+            </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Авторизация" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="48" Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Content="Логин" HorizontalAlignment="Left" Margin="221,132,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" Margin="217,217,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
-        <Button x:Name="DaBtn" Content="Потвердить" HorizontalAlignment="Center" Margin="0,292,0,0" VerticalAlignment="Top" Height="31" Width="100" FontFamily="Segoe Print" Foreground="#FFFFD305" Background="{x:Null}" BorderBrush="{x:Null}" Click="DaBtn_Click"/>
-        <Button x:Name="Regtodt" Content="Регистрация" HorizontalAlignment="Center" Margin="0,328,0,0" VerticalAlignment="Top" Height="31" Width="100" FontFamily="Segoe Print" Foreground="#FFFFD305" Background="{x:Null}" BorderBrush="{x:Null}" Click="Regtodt_Click">
-            <UIElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </UIElement.RenderTransform>
-        </Button>
-        <TextBox x:Name="TextLogin" HorizontalAlignment="Center" Margin="0,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="21" FontFamily="Segoe Print" Background="{x:Null}"/>
-        <PasswordBox x:Name="PassBox" HorizontalAlignment="Center" Margin="0,261,0,0" VerticalAlignment="Top" Width="348" FontFamily="Segoe Print" Background="{x:Null}"/>
+        <Grid VerticalAlignment="Center">
+            <Label Content="Авторизация" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="48" Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
+            <Label Content="Логин" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,132,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
+            <Label Content="Пароль" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,209,0,0" VerticalAlignment="Top" FontFamily="Segoe Print" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
+            <Button x:Name="DaBtn" Content="Потвердить" HorizontalAlignment="Stretch" Margin="0,292,0,0" VerticalAlignment="Top" Height="31" Width="344" FontFamily="Segoe Print" Foreground="#FFFF0505"  Click="DaBtn_Click" Background="White"/>
+            <Button x:Name="Regtodt" Content="Регистрация" HorizontalAlignment="Stretch" Margin="0,328,0,0" VerticalAlignment="Top" Height="31" Width="344" FontFamily="Segoe Print" Foreground="#FFFF0505"  Click="Regtodt_Click" Background="White">
+                <UIElement.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </UIElement.RenderTransform>
+            </Button>
+            <TextBox x:Name="TextLogin" HorizontalAlignment="Stretch" Margin="0,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="21" FontFamily="Segoe Print" />
+            <PasswordBox x:Name="PassBox" HorizontalAlignment="Stretch" Margin="0,261,0,0" VerticalAlignment="Top" Width="348" FontFamily="Segoe Print"/>
+        </Grid>
     </Grid>
 </Page>

@@ -24,6 +24,7 @@ namespace JewelryStore.Pages
         public PageAftoriz()
         {
             InitializeComponent();
+            this.Loaded += Aftor_Loaded;
         }
 
         private void Regtodt_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,15 @@ namespace JewelryStore.Pages
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.Navigate(new PageReg());
+        }
+
+        private void Aftor_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this) is Window window)
+            {
+                this.MinWidth = 440;
+                this.MinHeight = 420;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JewelryStore.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,10 +24,25 @@ namespace JewelryStore
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigated += MainFrame_Navigated;
             AppData.AppConnect.model0db = new AppData.JewelryStoreEntities();
             AppData.AppFrame.framemain = MainFrame;
             MainFrame.Navigate(new Pages.PageAftoriz());
             
+        }
+
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is PageReg)
+            {
+                this.MinWidth = 300;
+                this.MinHeight = 500;
+            }
+            else if (e.Content is PageAftoriz)
+            {
+                this.MinWidth = 440;
+                this.MinHeight = 420;
+            }
         }
     }
 }

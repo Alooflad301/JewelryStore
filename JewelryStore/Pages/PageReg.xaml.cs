@@ -26,6 +26,7 @@ namespace JewelryStore.Pages
         public PageReg()
         {
             InitializeComponent();
+            this.Loaded += PageReg_Loaded;
         }
 
         private void RegBut_Click(object sender, RoutedEventArgs e)
@@ -80,6 +81,20 @@ namespace JewelryStore.Pages
                 Password2.Background = Brushes.LightGreen;
                 Password2.BorderBrush = Brushes.Green;
             }
+        }
+
+        private void PageReg_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this) is Window window)
+            {
+                window.MinWidth = 300;
+                window.MinHeight = 500;
+            }
+        }
+
+        private void HomeBut_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.framemain.GoBack();
         }
     }
 }
