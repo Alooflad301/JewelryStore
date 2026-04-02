@@ -45,7 +45,7 @@ namespace JewelryStore.Pages
                     else
                     {
                         MessageBox.Show("Добро пожаловать " + userObj.Login + "!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                        AppFrame.framemain.Navigate(new PagePrivet());
+                        AppFrame.framemain.Navigate(new PageJewelryCatalog());
                     }
                 }
                 catch (Exception ex)

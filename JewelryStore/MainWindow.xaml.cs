@@ -43,6 +43,11 @@ namespace JewelryStore
                 this.MinWidth = 440;
                 this.MinHeight = 420;
             }
+            else if (e.Content is PageJewelryCatalog)
+            {
+                this.MinWidth = 1250;
+                this.MinHeight = 450;
+            }
         }
     }
 }

@@ -136,7 +136,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PagePrivet.xaml">
+    <Page Include="Pages\PageJewelryCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,8 +149,8 @@
     <Compile Include="Pages\PageAftoriz.xaml.cs">
       <DependentUpon>PageAftoriz.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PagePrivet.xaml.cs">
-      <DependentUpon>PagePrivet.xaml</DependentUpon>
+    <Compile Include="Pages\PageJewelryCatalog.xaml.cs">
+      <DependentUpon>PageJewelryCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageReg.xaml.cs">
       <DependentUpon>PageReg.xaml</DependentUpon>
@@ -188,9 +188,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="AppData\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -200,8 +198,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Zagluhca.jpeg" />
+    <Resource Include="Images\ring1.jpg" />
+    <Resource Include="Images\ring2.jpg" />
     <Resource Include="ring256.ico" />
-    <Resource Include="Pages\Mops.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

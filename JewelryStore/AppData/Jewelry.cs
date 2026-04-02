@@ -29,7 +29,22 @@ namespace JewelryStore.AppData
         public Nullable<int> IdSupplier { get; set; }
         public Nullable<int> PriceJewelry { get; set; }
         public string ImagePath { get; set; }
-    
+
+        public string CurrentPhoto
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(ImagePath) || String.IsNullOrWhiteSpace(ImagePath))
+                {
+                    return @"/Images/Zagluhca.jpeg";
+                }
+                else
+                {
+                    return @"/Images/" + ImagePath;
+                }
+            }
+        }
+
         public virtual JewelryTip JewelryTip { get; set; }
         public virtual Material Material { get; set; }
         public virtual Stone Stone { get; set; }
