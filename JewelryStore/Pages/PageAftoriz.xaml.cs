@@ -34,25 +34,29 @@ namespace JewelryStore.Pages
 
         private void DaBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
             {
-                try
+                var userObj = AppData.AppConnect.model0db.User.FirstOrDefault(x => x.Login == TextLogin.Text && x.Password == PassBox.Password);
+                if (userObj == null)
                 {
-                    var userObj = AppData.AppConnect.model0db.User.FirstOrDefault(x => x.Login == TextLogin.Text && x.Password == PassBox.Password);
-                    if (userObj == null)
-                    {
-                        MessageBox.Show("Такого пользователя нет", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Добро пожаловать " + userObj.Login + "!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                        AppFrame.framemain.Navigate(new PageJewelryCatalog());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка" + ex.Message.ToString(), "Критическая ошибка приложения", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Такого пользователя нет", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
+                CurrentUser.IdUser = userObj.IdUser;
+                CurrentUser.Login = userObj.Login;
+                CurrentUser.IdRole = userObj.IdRole??0;
+
+                MessageBox.Show($"Добро пожаловать, {userObj.Login}! (Роль: {(CurrentUser.IsAdmin ? "Админ" : "Клиент")})");
+
+                if (CurrentUser.IsAdmin)
+                    AppFrame.framemain.Navigate(new PageAdminPanel());
+                else
+                    AppFrame.framemain.Navigate(new PageJewelryCatalog());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
             }
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
