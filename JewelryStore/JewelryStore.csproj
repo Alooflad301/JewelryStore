@@ -133,6 +133,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\PageAddEditJewelry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageAdminJewelry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageAdminPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +159,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\PageAddEditJewelry.xaml.cs">
+      <DependentUpon>PageAddEditJewelry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageAdminJewelry.xaml.cs">
+      <DependentUpon>PageAdminJewelry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageAdminPanel.xaml.cs">
       <DependentUpon>PageAdminPanel.xaml</DependentUpon>
     </Compile>

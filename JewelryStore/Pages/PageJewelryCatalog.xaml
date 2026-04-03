@@ -77,7 +77,6 @@
                                             <Run Text="{Binding PriceJewelry}"/>
                                             <Run Text=" руб."/>
                                 </TextBlock>
-
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -87,6 +86,7 @@
 
         </ListView>
         <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="2" Foreground="White" FontSize="18"/>
+        <Button x:Name="AdminPanelBottun" Content="Панель администратора" HorizontalAlignment="Left" Margin="1074,17,0,0" Grid.Row="2" VerticalAlignment="Top" Height="27" Width="143" Loaded="AdminPanelBottun_Loaded" Click="AdminPanelBottun_Click"/>
 
 
         <Grid.Background>

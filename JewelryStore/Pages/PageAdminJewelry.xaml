@@ -1,0 +1,90 @@
+﻿<Page x:Class="JewelryStore.Pages.PageAdminJewelry"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JewelryStore.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1250"
+      Title="PageAdminJewelry" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Панель кнопок -->
+            <RowDefinition Height="5*"/>
+            <!-- Список товаров -->
+            <RowDefinition Height="Auto"/>
+            <!-- Счетчик -->
+        </Grid.RowDefinitions>
+
+        <!-- Панель кнопок администратора -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10,10,5">
+            <Button x:Name="AddButton" Content="➕ Добавить" Height="35" Width="120" 
+                    FontSize="16" Margin="5" Click="AddButton_Click"/>
+            <Button x:Name="EditButton" Content="✏️ Редактировать" Height="35" Width="130" 
+                    FontSize="16" Margin="5" Click="EditButton_Click" IsEnabled="False"/>
+            <Button x:Name="DeleteButton" Content="🗑️ Удалить" Height="35" Width="120" 
+                    FontSize="16" Margin="5" Click="DeleteButton_Click" IsEnabled="False"/>
+        </StackPanel>
+
+        <!-- ListView товаров (без фильтров) -->
+        <ListView Grid.Row="1" x:Name="listProduct" Margin="10,5,10,10" 
+                  SelectionChanged="ListView_SelectionChanged">
+            <ListView.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFCACACA" Offset="0"/>
+                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                </RadialGradientBrush>
+            </ListView.Background>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Width="200" Height="200" Margin="3" ClipToBounds="True" Grid.Column="0">
+                                <Image Source="{Binding CurrentPhoto}" Stretch="UniformToFill"/>
+                            </Border>
+                            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
+                                <TextBlock Height="auto" FontWeight="Bold" FontSize="16" Text="{Binding NameJewelry}"/>
+                                <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,20">
+                                    <Run Text="Категория: "/><Run Text="{Binding JewelryTip.NameJewelryTip}"/>
+                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,20">
+                                    <Run Text="Материал: "/><Run Text="{Binding Material.NameMaterial}"/>
+                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,10">
+                                    <Run Text="Камень: "/><Run Text="{Binding Stone.NameStone}"/>
+                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" Height="auto">
+                                    <Run Text="Поставщик: "/><Run Text="{Binding Supplier.NameSupplier}"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,10" FontSize="18" FontWeight="Bold">
+                                    <Run Text="{Binding PriceJewelry}"/><Run Text=" руб."/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Счетчик товаров -->
+        <TextBlock x:Name="tbCounter" Grid.Row="2" HorizontalAlignment="Left" Margin="15,10" 
+                   VerticalAlignment="Center" Foreground="White" FontSize="18" FontWeight="Bold"/>
+
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FFD41891" Offset="0"/>
+                <GradientStop Color="#FF421A56" Offset="1"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+    </Grid>
+</Page>

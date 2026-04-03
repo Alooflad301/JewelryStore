@@ -9,6 +9,34 @@
       Title="PageAdminPanel">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD0AA40" Offset="1"/>
+                <GradientStop Color="#FFDE3636"/>
+                <GradientStop Color="#FFB99207" Offset="0.747"/>
+                <GradientStop Color="#FFD57533" Offset="0.47"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Каталог" Height="34" FontSize="20" FontFamily="Nirmala UI" Click="Button_Click" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="1" Content="Корзина" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="2" Content="Заказы" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="3" Content="Пользователи" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="4" Content="Категории" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
+        </Grid>
+        <Frame x:Name="Adminfarme" Grid.Row="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

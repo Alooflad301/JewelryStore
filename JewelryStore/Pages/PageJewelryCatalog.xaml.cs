@@ -299,5 +299,19 @@ namespace JewelryStore.Pages
         {
             Sbros();
         }
+
+        private void AdminPanelBottun_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!AppData.CurrentUser.IsAdmin)
+            {
+                AdminPanelBottun.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void AdminPanelBottun_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.framemain.Navigate(new PageAdminPanel());
+
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using JewelryStore.AppData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +16,13 @@ using System.Windows.Shapes;
 namespace JewelryStore.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для PageAdminPanel.xaml
+    /// Логика взаимодействия для PageAddEditJewelry.xaml
     /// </summary>
-    public partial class PageAdminPanel : Page
+    public partial class PageAddEditJewelry : Page
     {
-        public PageAdminPanel()
+        public PageAddEditJewelry()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Adminfarme.Navigate(new PageAdminJewelry());
         }
     }
 }
