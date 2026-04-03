@@ -24,7 +24,7 @@
             <TextBox x:Name="TextSearch" Margin="5" TextWrapping="Wrap" Width="186" Height="26" TextChanged="TextSearch_TextChanged"/>
             <Button x:Name="SbrosBut" Margin="5" Content="Сброс" Height="26" Width="91" Click="SbrosBut_Click"/>
         </StackPanel>
-        <ListView Grid.Row="1" x:Name="listProduct" Margin="0,8,0,15" >
+        <ListView Grid.Row="1" x:Name="listProduct" Margin="0,8,140,15" >
             <ListView.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="#FFCACACA" Offset="0"/>
@@ -86,7 +86,7 @@
 
         </ListView>
         <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Grid.Row="2" Foreground="White" FontSize="18"/>
-        <Button x:Name="AdminPanelBottun" Content="Панель администратора" HorizontalAlignment="Left" Margin="1074,17,0,0" Grid.Row="2" VerticalAlignment="Top" Height="27" Width="143" Loaded="AdminPanelBottun_Loaded" Click="AdminPanelBottun_Click"/>
+        <Button x:Name="AdminPanelBottun" Content="Панель администратора" HorizontalAlignment="Left" Margin="967,12,0,0" Grid.Row="2" VerticalAlignment="Top" Height="27" Width="143" Loaded="AdminPanelBottun_Loaded" Click="AdminPanelBottun_Click"/>
 
 
         <Grid.Background>

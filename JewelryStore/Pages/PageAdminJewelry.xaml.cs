@@ -29,7 +29,7 @@ namespace JewelryStore.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             LoadJewelryList();
-            CheckAdminRole();
+            CheckAdminRole(); 
         }
 
         private void LoadJewelryList()
@@ -61,6 +61,8 @@ namespace JewelryStore.Pages
             if (listProduct.SelectedItem is Jewelry selectedJewelry)
             {
                 var page = new PageAddEditJewelry();
+                page.JewelryToEdit = selectedJewelry;
+                AppFrame.framemain.Navigate(page);
             }
         }
 
