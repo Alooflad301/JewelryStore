@@ -36,5 +36,6 @@ namespace JewelryStore.AppData
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<CartItem> CartItem { get; set; }
     }
 }

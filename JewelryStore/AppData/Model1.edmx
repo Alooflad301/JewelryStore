@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище JewelryStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище JewelryStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CartItem">
+          <Key>
+            <PropertyRef Name="IdCartItem" />
+          </Key>
+          <Property Name="IdCartItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdJewelry" Type="int" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="AddedData" Type="datetime" />
+        </EntityType>
         <EntityType Name="Jewelry">
           <Key>
             <PropertyRef Name="IdJewelry" />
@@ -113,6 +123,30 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="IdRole" Type="int" />
         </EntityType>
+        <Association Name="FK_CartItem_Jewelry">
+          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="0..1" />
+          <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jewelry">
+              <PropertyRef Name="IdJewelry" />
+            </Principal>
+            <Dependent Role="CartItem">
+              <PropertyRef Name="IdJewelry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CartItem_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="CartItem">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Jewelry_JewelryTip">
           <End Role="JewelryTip" Type="Self.JewelryTip" Multiplicity="0..1" />
           <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="*" />
@@ -234,6 +268,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище JewelryStoreModelContainer">
+          <EntitySet Name="CartItem" EntityType="Self.CartItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jewelry" EntityType="Self.Jewelry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JewelryTip" EntityType="Self.JewelryTip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
@@ -245,6 +280,14 @@
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CartItem_Jewelry" Association="Self.FK_CartItem_Jewelry">
+            <End Role="Jewelry" EntitySet="Jewelry" />
+            <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartItem_User" Association="Self.FK_CartItem_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
           <AssociationSet Name="FK_Jewelry_JewelryTip" Association="Self.FK_Jewelry_JewelryTip">
             <End Role="JewelryTip" EntitySet="JewelryTip" />
             <End Role="Jewelry" EntitySet="Jewelry" />
@@ -286,8 +329,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="JewelryStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,6 +351,7 @@
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Jewelry_Supplier" FromRole="Jewelry" ToRole="Supplier" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Jewelry" FromRole="Jewelry" ToRole="Order" />
           <NavigationProperty Name="OrderItem" Relationship="Self.FK_OrderItem_Jewelry" FromRole="Jewelry" ToRole="OrderItem" />
+          <NavigationProperty Name="CartItem" Relationship="JewelryStoreModel.FK_CartItem_Jewelry" FromRole="Jewelry" ToRole="CartItem" />
         </EntityType>
         <EntityType Name="JewelryTip">
           <Key>
@@ -418,6 +461,7 @@
           <Property Name="IdRole" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="CartItem" Relationship="JewelryStoreModel.FK_CartItem_User" FromRole="User" ToRole="CartItem" />
         </EntityType>
         <Association Name="FK_Jewelry_JewelryTip">
           <End Role="JewelryTip" Type="Self.JewelryTip" Multiplicity="0..1" />
@@ -591,7 +635,52 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="CartItem" EntityType="JewelryStoreModel.CartItem" />
+          <AssociationSet Name="FK_CartItem_Jewelry" Association="JewelryStoreModel.FK_CartItem_Jewelry">
+            <End Role="Jewelry" EntitySet="Jewelry" />
+            <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartItem_User" Association="JewelryStoreModel.FK_CartItem_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CartItem">
+          <Key>
+            <PropertyRef Name="IdCartItem" />
+          </Key>
+          <Property Name="IdCartItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdJewelry" Type="Int32" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="AddedData" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_CartItem_Jewelry" FromRole="CartItem" ToRole="Jewelry" />
+          <NavigationProperty Name="User" Relationship="JewelryStoreModel.FK_CartItem_User" FromRole="CartItem" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_CartItem_Jewelry">
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.CartItem" Role="CartItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jewelry">
+              <PropertyRef Name="IdJewelry" />
+            </Principal>
+            <Dependent Role="CartItem">
+              <PropertyRef Name="IdJewelry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CartItem_User">
+          <End Type="JewelryStoreModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.CartItem" Role="CartItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="CartItem">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -714,6 +803,17 @@
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CartItem">
+            <EntityTypeMapping TypeName="JewelryStoreModel.CartItem">
+              <MappingFragment StoreEntitySet="CartItem">
+                <ScalarProperty Name="AddedData" ColumnName="AddedData" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
+                <ScalarProperty Name="IdCartItem" ColumnName="IdCartItem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

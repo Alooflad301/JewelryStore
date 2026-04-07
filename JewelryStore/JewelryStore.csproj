@@ -80,6 +80,9 @@
     </Compile>
     <Compile Include="AppData\AppConnect.cs" />
     <Compile Include="AppData\AppFrame.cs" />
+    <Compile Include="AppData\CartItem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\CurrentUser.cs" />
     <Compile Include="AppData\Jewelry.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -149,6 +152,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageCart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageJewelryCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +177,9 @@
     </Compile>
     <Compile Include="Pages\PageAftoriz.xaml.cs">
       <DependentUpon>PageAftoriz.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageCart.xaml.cs">
+      <DependentUpon>PageCart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageJewelryCatalog.xaml.cs">
       <DependentUpon>PageJewelryCatalog.xaml</DependentUpon>

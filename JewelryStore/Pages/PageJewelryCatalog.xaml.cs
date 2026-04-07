@@ -290,7 +290,7 @@ namespace JewelryStore.Pages
         {
             if (Window.GetWindow(this) is Window window)
             {
-                this.MinWidth = 1250;
+                this.MinWidth = 1350;
                 this.MinHeight = 450;
             }
         }
@@ -312,6 +312,20 @@ namespace JewelryStore.Pages
         {
             AppFrame.framemain.Navigate(new PageAdminPanel());
 
+        }
+
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && int.TryParse(button.Tag?.ToString(), out int jewelryId))
+            {
+                ShoppingCart.AddItem(jewelryId);
+                MessageBox.Show("Добавлено в корзину!");
+            }
+        }
+
+        private void CartBut_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.framemain.Navigate(new PageCart());
         }
     }
 }

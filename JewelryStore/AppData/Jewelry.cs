@@ -19,6 +19,7 @@ namespace JewelryStore.AppData
         {
             this.Order = new HashSet<Order>();
             this.OrderItem = new HashSet<OrderItem>();
+            this.CartItem = new HashSet<CartItem>();
         }
     
         public int IdJewelry { get; set; }
@@ -29,7 +30,7 @@ namespace JewelryStore.AppData
         public Nullable<int> IdSupplier { get; set; }
         public Nullable<int> PriceJewelry { get; set; }
         public string ImagePath { get; set; }
-
+        
         public string CurrentPhoto
         {
             get
@@ -53,5 +54,7 @@ namespace JewelryStore.AppData
         public virtual ICollection<Order> Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartItem> CartItem { get; set; }
     }
 }
