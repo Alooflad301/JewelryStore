@@ -25,7 +25,7 @@
           <Property Name="IdMaterial" Type="int" />
           <Property Name="IdStone" Type="int" />
           <Property Name="IdSupplier" Type="int" />
-          <Property Name="PriceJewelry" Type="int" />
+          <Property Name="PriceJewelry" Type="decimal" Precision="8" Scale="2" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="JewelryTip">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace JewelryStore.AppData
     {
         private static JewelryStoreEntities GetNewContext()
         {
-            return new JewelryStoreEntities();  // Новый контекст каждый раз!
+            return new JewelryStoreEntities();
         }
 
         public static void AddItem(int jewelryId, int quantity = 1)
@@ -35,6 +36,44 @@ namespace JewelryStore.AppData
                 }
                 db.SaveChanges();
             }
+        }
+        public static List<CartItem> GetItems()
+        {
+            using (var db = GetNewContext())
+            {
+                return db.CartItem
+                    .Where(c => c.IdUser == CurrentUser.IdUser)
+                    .Include(c => c.Jewelry.JewelryTip)
+                    .Include(c => c.Jewelry.Material)
+                    .Include(c => c.Jewelry.Stone)
+                    .Include(c => c.Jewelry.Supplier)
+                    .ToList();
+            }
+        }
+
+        public static void RemoveItem(int cartItemId)
+        {
+            using (var db = GetNewContext())
+            {
+                var item = db.CartItem.Find(cartItemId);
+                if (item != null)
+                {
+                    db.CartItem.Remove(item);
+                    db.SaveChanges();
+                }
+            }
+        }
+        public static void Clear()
+        {
+            using (var db = AppData.AppConnect.model0db)
+            {
+                var items = db.CartItem.Where(c => c.IdUser == CurrentUser.IdUser).ToList();
+                db.CartItem.RemoveRange(items);
+                db.SaveChanges();
+            }
+        }
+        public static void UpdateQuantity(int cartItemId, int delta)
+        {
         }
     }
 }

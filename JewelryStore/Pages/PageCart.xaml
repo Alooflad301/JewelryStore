@@ -8,98 +8,78 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageCart">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFFFD40A"/>
+                <GradientStop Color="#FFE02626" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="5,0,20,0" Content="удалить" Height="26"/>
-            <Button Grid.Column="1" Margin="5,0,20,0" Content="" Height="26" />
-            <Button Grid.Column="2" Margin="5,0,20,0" Content="Сброс" Height="26" />
-        </Grid>
-        <ListView Grid.Row="1" x:Name="listProduct" Margin="5,0,20,0">
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Корзина" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="#FF421A56"/>
+        <ListView Grid.Row="1" x:Name="listCart" Margin="20,10">
             <ListView.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="#FFCACACA" Offset="0"/>
                     <GradientStop Color="#FFA0A0A0" Offset="1"/>
                 </RadialGradientBrush>
             </ListView.Background>
-
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border>
-                        <Grid>
+                    <Border BorderThickness="1" Margin="2" CornerRadius="8">
+                        <Grid Margin="10">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
-                            <Border
-                         Width="200"
-                         Height="200"
-                         Margin="3"
-                         ClipToBounds="True"
-                         Grid.Column="0">
-                                <Image Source="{Binding CurrentPhoto}" Stretch="UniformToFill"/>
+                            <Border Width="160" Height="160" Grid.Column="0" Margin="0,0,10,0">
+                                <Image Source="{Binding Jewelry.CurrentPhoto}" Stretch="UniformToFill"/>
                             </Border>
-                            <StackPanel  Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
-                                <TextBlock  Height="auto" Text="{Binding NameJewelry}"/>
-                                <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,20">
-                         <Run Text="Категория укарашения: "/>
-                          <Run Text="{Binding JewelryTip.NameJewelryTip}"/>
-
-                                </TextBlock>
-                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,20">
-                                 <Run Text="Материал: "/>
-                                 <Run Text="{Binding Material.NameMaterial}"/>
-
-                                </TextBlock>
-                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,10">
-                                 <Run Text="Камень: "/>
-                                 <Run Text="{Binding Stone.NameStone}"/>
-
-                                </TextBlock>
-                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,10">
- <Run Text="Бренд: "/>
- <Run Text="{Binding Supplier.NameSupplier}"/>
-                                </TextBlock>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Jewelry.NameJewelry}" FontSize="18" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Jewelry.JewelryTip.NameJewelryTip}" Margin="0,5"/>
+                                <TextBlock Text="{Binding Jewelry.Material.NameMaterial}" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding Jewelry.Supplier.NameSupplier}"/>
                             </StackPanel>
-                            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,10">
-                                         <Run Text="Цена: "/>
-                                         <Run Text="{Binding PriceJewelry}"/>
-                                         <Run Text=" руб."/>
-                                </TextBlock>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Количество:" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="-" Width="30" Height="30" Margin="5" 
+                                        Click="DecreaseQuantity_Click" Tag="{Binding IdCartItem}"/>
+                                    <TextBlock x:Name="QuantityText" Text="{Binding Quantity}" 
+                                           FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0"/>
+                                    <Button Content="+" Width="30" Height="30" Margin="5" 
+                                        Click="IncreaseQuantity_Click" Tag="{Binding IdCartItem}"/>
+                                </StackPanel>
+                                <Button Content="🗑️ Удалить" Width="100" Height="28" Margin="5,10,5,0" 
+                                    Click="RemoveItem_Click" Tag="{Binding IdCartItem}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding Jewelry.PriceJewelry, StringFormat='Цена: {0} руб.'}" 
+                                       FontSize="14" Margin="0,0,0,5"/>
+                                <TextBlock x:Name="ItemTotalText" Text="{Binding TotalPrice, StringFormat='Итого: {0} руб.'}" 
+                                       FontSize="16" FontWeight="Bold"/>
                             </StackPanel>
                         </Grid>
                     </Border>
-
                 </DataTemplate>
             </ListView.ItemTemplate>
-
         </ListView>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock x:Name="tbCounter" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
-        </Grid>
-
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#FFD41891" Offset="0"/>
-                <GradientStop Color="#FF421A56" Offset="1"/>
-                <GradientStop Color="#FFAF0000" Offset="2"/>
-                <GradientStop Color="#FFC11C02" Offset="2"/>
-                <GradientStop Color="#FFFF0404" Offset="4"/>
-            </RadialGradientBrush>
-        </Grid.Background>
+        <Border Grid.Row="2" Height="80" Margin="20,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20">
+                <TextBlock Text="{Binding ElementName=listCart, Path=Items.Count, StringFormat='Товаров: {0}'}" FontSize="24" FontWeight="Bold" Margin="0,0,30,0" Foreground="White"/>
+                <TextBlock x:Name="tbTotal" Text="Итого: 0 руб." FontSize="24" FontWeight="Bold" Foreground="White"/>
+                <Button x:Name="CheckoutButton" Content="Оформить заказ" Width="160" Height="45" 
+                    FontSize="18" Margin="20,0" Click="CheckoutButton_Click"/>
+                <Button x:Name="ClearCartButton" Content="Очистить корзину" Width="160" Height="45" 
+                    FontSize="18" Margin="10,0" Click="ClearCartButton_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>
