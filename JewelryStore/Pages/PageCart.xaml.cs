@@ -75,11 +75,9 @@ namespace JewelryStore.Pages
             AppFrame.framemain.Navigate(new PageJewelryCatalog());
         }
 
-        private void ClearCartButton_Click(object sender, RoutedEventArgs e)
+        private void CatalogResButton_Click(object sender, RoutedEventArgs e)
         {
-
-            ShoppingCart.Clear();
-            LoadCart();
+            AppFrame.framemain.Navigate(new PageJewelryCatalog());
         }
     }
 }

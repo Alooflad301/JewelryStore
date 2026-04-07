@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JewelryStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="900"
       Title="PageCart">
     <Grid>
         <Grid.Background>
@@ -75,10 +75,8 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20">
                 <TextBlock Text="{Binding ElementName=listCart, Path=Items.Count, StringFormat='Товаров: {0}'}" FontSize="24" FontWeight="Bold" Margin="0,0,30,0" Foreground="White"/>
                 <TextBlock x:Name="tbTotal" Text="Итого: 0 руб." FontSize="24" FontWeight="Bold" Foreground="White"/>
-                <Button x:Name="CheckoutButton" Content="Оформить заказ" Width="160" Height="45" 
-                    FontSize="18" Margin="20,0" Click="CheckoutButton_Click"/>
-                <Button x:Name="ClearCartButton" Content="Очистить корзину" Width="160" Height="45" 
-                    FontSize="18" Margin="10,0" Click="ClearCartButton_Click"/>
+                <Button x:Name="CheckoutButton" Content="Оформить заказ" Width="160" Height="45" FontSize="18" Margin="20,0" Click="CheckoutButton_Click"/>
+                <Button x:Name="CatalogResButton" Content="Каталог" Width="100" Height="45"  FontSize="18" Margin="10,0" Click="CatalogResButton_Click"/>
             </StackPanel>
         </Border>
     </Grid>

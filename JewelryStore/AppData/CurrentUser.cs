@@ -63,15 +63,7 @@ namespace JewelryStore.AppData
                 }
             }
         }
-        public static void Clear()
-        {
-            using (var db = AppData.AppConnect.model0db)
-            {
-                var items = db.CartItem.Where(c => c.IdUser == CurrentUser.IdUser).ToList();
-                db.CartItem.RemoveRange(items);
-                db.SaveChanges();
-            }
-        }
+      
         public static void UpdateQuantity(int cartItemId, int delta)
         {
         }
