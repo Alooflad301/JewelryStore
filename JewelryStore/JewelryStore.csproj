@@ -156,11 +156,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageCheckout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageJewelryCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageReg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageUserOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,11 +189,17 @@
     <Compile Include="Pages\PageCart.xaml.cs">
       <DependentUpon>PageCart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageCheckout.xaml.cs">
+      <DependentUpon>PageCheckout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageJewelryCatalog.xaml.cs">
       <DependentUpon>PageJewelryCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageReg.xaml.cs">
       <DependentUpon>PageReg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageUserOrders.xaml.cs">
+      <DependentUpon>PageUserOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

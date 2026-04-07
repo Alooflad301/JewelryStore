@@ -40,39 +40,35 @@ namespace JewelryStore.Pages
 
         private void UpdateTotal()
         {
-           // tbTotal.Text = $"Итого: {ShoppingCart.GetTotalPrice():N0} руб.";
+            tbTotal.Text = $"Итого: {ShoppingCart.GetTotalPrice():N0} руб.";
         }
 
         private void IncreaseQuantity_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && int.TryParse(button.Tag?.ToString(), out int cartItemId))
-            {
-                ShoppingCart.UpdateQuantity(cartItemId, +1);
-                LoadCart();
-            }
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out int id))
+                ShoppingCart.UpdateQuantity(id, +1);
+            LoadCart();
         }
 
         private void DecreaseQuantity_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && int.TryParse(button.Tag?.ToString(), out int cartItemId))
-            {
-                ShoppingCart.UpdateQuantity(cartItemId, -1);
-                LoadCart();
-            }
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out int id))
+                ShoppingCart.UpdateQuantity(id, -1);
+            LoadCart();
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && int.TryParse(button.Tag?.ToString(), out int cartItemId))
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out int id))
             {
-                ShoppingCart.RemoveItem(cartItemId);
+                ShoppingCart.RemoveItem(id);
                 LoadCart();
             }
         }
 
         private void CheckoutButton_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.framemain.Navigate(new PageJewelryCatalog());
+           AppFrame.framemain.Navigate(new PageUserOrders());
         }
 
         private void CatalogResButton_Click(object sender, RoutedEventArgs e)

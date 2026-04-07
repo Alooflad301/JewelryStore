@@ -1,0 +1,110 @@
+﻿<Page x:Class="JewelryStore.Pages.PageUserOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JewelryStore.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1200"
+      Title="PageUserOrders">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF75CE7F"/>
+                <GradientStop Color="#FF177121" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Заголовок + фильтр -->
+            <RowDefinition Height="*"/>
+            <!-- ListView заказов -->
+            <RowDefinition Height="Auto"/>
+            <!-- Статистика -->
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок + фильтр по статусу -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,20,20,10">
+            <TextBlock Text="📋 Мои заказы" FontSize="28" FontWeight="Bold" 
+                       VerticalAlignment="Center" Margin="0,0,20,0"/>
+            <ComboBox x:Name="StatusFilter" Width="150" Height="30" Margin="10" 
+                      SelectionChanged="StatusFilter_SelectionChanged">
+                <ComboBoxItem Content="Все"/>
+                <ComboBoxItem Content="Новый"/>
+                <ComboBoxItem Content="В обработке"/>
+                <ComboBoxItem Content="Отправлен"/>
+                <ComboBoxItem Content="Доставлен"/>
+            </ComboBox>
+            <Button x:Name="RefreshButton" Content="🔄 Обновить" Width="100" Height="30" 
+                    Margin="10" Click="RefreshButton_Click"/>
+        </StackPanel>
+
+        <!-- ListView заказов -->
+        <ListView Grid.Row="1" x:Name="listOrders" Margin="20,0,20,10">
+            <ListView.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFCACACA" Offset="0"/>
+                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                </RadialGradientBrush>
+            </ListView.Background>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" Margin="2" CornerRadius="8">
+                        <Grid Margin="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Номер заказа -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Детали -->
+                                <ColumnDefinition Width="200"/>
+                                <!-- Дата/Статус -->
+                                <ColumnDefinition Width="150"/>
+                                <!-- Итог -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Номер заказа -->
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding IdOrder}" FontSize="24" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding OrderDate, StringFormat='dd.MM.yyyy'}" 
+                                           FontSize="12" Foreground="Gray"/>
+                            </StackPanel>
+
+                            <!-- Товары заказа -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding CustomerName}" FontSize="16" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding DeliveryAddress}" FontSize="14"/>
+                                <TextBlock Text="{Binding Jewelry.NameJewelry}" FontSize="14" 
+                                           Foreground="#FF421A56"/>
+                                <TextBlock Text="{Binding Quantity, StringFormat='Кол-во: {0} шт.'}" 
+                                           FontSize="14"/>
+                            </StackPanel>
+
+                            <!-- Дата и статус -->
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding StatusOrder.NameStatusOrder}" 
+                                           FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding OrderDate, StringFormat='HH:mm'}" FontSize="14"/>
+                            </StackPanel>
+
+                            <!-- Итог -->
+                            <TextBlock x:Name="ItemTotalText" 
+           Text="{Binding TotalPrice, StringFormat='Итого: {0:N0} руб.'}" 
+           FontSize="16" FontWeight="Bold"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Статистика -->
+        <Border Grid.Row="2" Height="60" Margin="20,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" Margin="20">
+                <TextBlock x:Name="tbStats" Text="Заказов: 0 | На сумму: 0 руб." 
+                           FontSize="18" FontWeight="Bold" Foreground="White" Margin="0,0,30,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
