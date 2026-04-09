@@ -34,8 +34,8 @@
 
             <Button Grid.Column="0" Content="Каталог" Height="34" FontSize="20" FontFamily="Nirmala UI" Click="Button_Click" HorizontalAlignment="Stretch"/>
             <Button Grid.Column="1" Content="Корзина" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
-            <Button Grid.Column="2" Content="Заказы" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
-            <Button Grid.Column="3" Content="Пользователи" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="2" Content="Заказы" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_1"/>
+            <Button Grid.Column="3" Content="Пользователи" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_2"/>
             <Button Grid.Column="4" Content="Категории" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch"/>
             <Button Grid.Column="5" Content="Обычный каталог" Height="34" FontSize="15" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Catalog_Click"/>
         </Grid>

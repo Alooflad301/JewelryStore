@@ -18,7 +18,7 @@ namespace JewelryStore.AppData
 
     public static class ShoppingCart
     {
-        private static JewelryStoreEntities GetNewContext()
+        public static JewelryStoreEntities GetNewContext()
         {
             return new JewelryStoreEntities();
         }

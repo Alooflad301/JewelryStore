@@ -68,7 +68,7 @@ namespace JewelryStore.Pages
 
         private void CheckoutButton_Click(object sender, RoutedEventArgs e)
         {
-           AppFrame.framemain.Navigate(new PageUserOrders());
+           AppFrame.framemain.Navigate(new PageCheckout());
         }
 
         private void CatalogResButton_Click(object sender, RoutedEventArgs e)

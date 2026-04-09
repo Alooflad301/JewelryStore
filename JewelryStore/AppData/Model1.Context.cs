@@ -25,17 +25,17 @@ namespace JewelryStore.AppData
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<CartItem> CartItem { get; set; }
         public virtual DbSet<Jewelry> Jewelry { get; set; }
         public virtual DbSet<JewelryTip> JewelryTip { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItem> OrderItem { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<StatusOrder> StatusOrder { get; set; }
         public virtual DbSet<Stone> Stone { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<CartItem> CartItem { get; set; }
     }
 }

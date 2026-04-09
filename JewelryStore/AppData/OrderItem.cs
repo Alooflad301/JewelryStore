@@ -18,8 +18,8 @@ namespace JewelryStore.AppData
         public Nullable<int> IdOrder { get; set; }
         public int IdJewelry { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> UnitPrice { get; set; }
-        public Nullable<int> TotalPrice { get; set; }
+        public Nullable<decimal> UnitPrice { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
     
         public virtual Jewelry Jewelry { get; set; }
         public virtual Order Order { get; set; }

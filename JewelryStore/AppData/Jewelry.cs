@@ -17,9 +17,9 @@ namespace JewelryStore.AppData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Jewelry()
         {
+            this.CartItem = new HashSet<CartItem>();
             this.Order = new HashSet<Order>();
             this.OrderItem = new HashSet<OrderItem>();
-            this.CartItem = new HashSet<CartItem>();
         }
     
         public int IdJewelry { get; set; }
@@ -28,7 +28,7 @@ namespace JewelryStore.AppData
         public Nullable<int> IdMaterial { get; set; }
         public Nullable<int> IdStone { get; set; }
         public Nullable<int> IdSupplier { get; set; }
-        public Nullable<int> PriceJewelry { get; set; }
+        public Nullable<decimal> PriceJewelry { get; set; }
         public string ImagePath { get; set; }
         public string CurrentPhoto
         {
@@ -36,7 +36,7 @@ namespace JewelryStore.AppData
             {
                 if (String.IsNullOrEmpty(ImagePath) || String.IsNullOrWhiteSpace(ImagePath))
                 {
-                    return @"/Images/Zagluhca.png";
+                    return @"/Images/Zagluhca.jpeg";
                 }
                 else
                 {
@@ -44,6 +44,9 @@ namespace JewelryStore.AppData
                 }
             }
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartItem> CartItem { get; set; }
         public virtual JewelryTip JewelryTip { get; set; }
         public virtual Material Material { get; set; }
         public virtual Stone Stone { get; set; }
@@ -52,7 +55,5 @@ namespace JewelryStore.AppData
         public virtual ICollection<Order> Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItem> CartItem { get; set; }
     }
 }

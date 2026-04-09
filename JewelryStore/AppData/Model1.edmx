@@ -25,7 +25,7 @@
           <Property Name="IdMaterial" Type="int" />
           <Property Name="IdStone" Type="int" />
           <Property Name="IdSupplier" Type="int" />
-          <Property Name="PriceJewelry" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PriceJewelry" Type="decimal" Precision="16" Scale="2" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="JewelryTip">
@@ -57,7 +57,7 @@
           <Property Name="IdStatusOrder" Type="int" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="TotalPrice" Type="int" />
+          <Property Name="TotalPrice" Type="decimal" Precision="16" Scale="2" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -67,8 +67,8 @@
           <Property Name="IdOrder" Type="int" />
           <Property Name="IdJewelry" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="UnitPrice" Type="int" />
-          <Property Name="TotalPrice" Type="int" />
+          <Property Name="UnitPrice" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="TotalPrice" Type="decimal" Precision="16" Scale="2" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -333,6 +333,98 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="JewelryStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="JewelryStoreModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="JewelryStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="CartItem" EntityType="JewelryStoreModel.CartItem" />
+          <EntitySet Name="Jewelry" EntityType="JewelryStoreModel.Jewelry" />
+          <EntitySet Name="JewelryTip" EntityType="JewelryStoreModel.JewelryTip" />
+          <EntitySet Name="Material" EntityType="JewelryStoreModel.Material" />
+          <EntitySet Name="Order" EntityType="JewelryStoreModel.Order" />
+          <EntitySet Name="OrderItem" EntityType="JewelryStoreModel.OrderItem" />
+          <EntitySet Name="StatusOrder" EntityType="JewelryStoreModel.StatusOrder" />
+          <EntitySet Name="Stone" EntityType="JewelryStoreModel.Stone" />
+          <EntitySet Name="Supplier" EntityType="JewelryStoreModel.Supplier" />
+          <EntitySet Name="User" EntityType="JewelryStoreModel.User" />
+          <AssociationSet Name="FK_CartItem_Jewelry" Association="JewelryStoreModel.FK_CartItem_Jewelry">
+            <End Role="Jewelry" EntitySet="Jewelry" />
+            <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartItem_User" Association="JewelryStoreModel.FK_CartItem_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jewelry_JewelryTip" Association="JewelryStoreModel.FK_Jewelry_JewelryTip">
+            <End Role="JewelryTip" EntitySet="JewelryTip" />
+            <End Role="Jewelry" EntitySet="Jewelry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jewelry_Material" Association="JewelryStoreModel.FK_Jewelry_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Jewelry" EntitySet="Jewelry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jewelry_Stone" Association="JewelryStoreModel.FK_Jewelry_Stone">
+            <End Role="Stone" EntitySet="Stone" />
+            <End Role="Jewelry" EntitySet="Jewelry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jewelry_Supplier" Association="JewelryStoreModel.FK_Jewelry_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Jewelry" EntitySet="Jewelry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Jewelry" Association="JewelryStoreModel.FK_Order_Jewelry">
+            <End Role="Jewelry" EntitySet="Jewelry" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Jewelry" Association="JewelryStoreModel.FK_OrderItem_Jewelry">
+            <End Role="Jewelry" EntitySet="Jewelry" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_StatusOrder" Association="JewelryStoreModel.FK_Order_StatusOrder">
+            <End Role="StatusOrder" EntitySet="StatusOrder" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="JewelryStoreModel.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Order" Association="JewelryStoreModel.FK_OrderItem_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="JewelryStoreModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="CartItem">
+          <Key>
+            <PropertyRef Name="IdCartItem" />
+          </Key>
+          <Property Name="IdCartItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdJewelry" Type="Int32" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="AddedData" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_CartItem_Jewelry" FromRole="CartItem" ToRole="Jewelry" />
+          <NavigationProperty Name="User" Relationship="JewelryStoreModel.FK_CartItem_User" FromRole="CartItem" ToRole="User" />
+        </EntityType>
         <EntityType Name="Jewelry">
           <Key>
             <PropertyRef Name="IdJewelry" />
@@ -343,15 +435,15 @@
           <Property Name="IdMaterial" Type="Int32" />
           <Property Name="IdStone" Type="Int32" />
           <Property Name="IdSupplier" Type="Int32" />
-          <Property Name="PriceJewelry" Type="Int32" />
+          <Property Name="PriceJewelry" Type="Decimal" Precision="16" Scale="2" />
           <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="JewelryTip" Relationship="Self.FK_Jewelry_JewelryTip" FromRole="Jewelry" ToRole="JewelryTip" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Jewelry_Material" FromRole="Jewelry" ToRole="Material" />
-          <NavigationProperty Name="Stone" Relationship="Self.FK_Jewelry_Stone" FromRole="Jewelry" ToRole="Stone" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK_Jewelry_Supplier" FromRole="Jewelry" ToRole="Supplier" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Jewelry" FromRole="Jewelry" ToRole="Order" />
-          <NavigationProperty Name="OrderItem" Relationship="Self.FK_OrderItem_Jewelry" FromRole="Jewelry" ToRole="OrderItem" />
           <NavigationProperty Name="CartItem" Relationship="JewelryStoreModel.FK_CartItem_Jewelry" FromRole="Jewelry" ToRole="CartItem" />
+          <NavigationProperty Name="JewelryTip" Relationship="JewelryStoreModel.FK_Jewelry_JewelryTip" FromRole="Jewelry" ToRole="JewelryTip" />
+          <NavigationProperty Name="Material" Relationship="JewelryStoreModel.FK_Jewelry_Material" FromRole="Jewelry" ToRole="Material" />
+          <NavigationProperty Name="Stone" Relationship="JewelryStoreModel.FK_Jewelry_Stone" FromRole="Jewelry" ToRole="Stone" />
+          <NavigationProperty Name="Supplier" Relationship="JewelryStoreModel.FK_Jewelry_Supplier" FromRole="Jewelry" ToRole="Supplier" />
+          <NavigationProperty Name="Order" Relationship="JewelryStoreModel.FK_Order_Jewelry" FromRole="Jewelry" ToRole="Order" />
+          <NavigationProperty Name="OrderItem" Relationship="JewelryStoreModel.FK_OrderItem_Jewelry" FromRole="Jewelry" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="JewelryTip">
           <Key>
@@ -359,7 +451,7 @@
           </Key>
           <Property Name="IdJewelryTip" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameJewelryTip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Jewelry" Relationship="Self.FK_Jewelry_JewelryTip" FromRole="JewelryTip" ToRole="Jewelry" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_Jewelry_JewelryTip" FromRole="JewelryTip" ToRole="Jewelry" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -368,7 +460,7 @@
           <Property Name="IdMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Proba" Type="Int32" />
-          <NavigationProperty Name="Jewelry" Relationship="Self.FK_Jewelry_Material" FromRole="Material" ToRole="Jewelry" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_Jewelry_Material" FromRole="Material" ToRole="Jewelry" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -384,11 +476,11 @@
           <Property Name="IdStatusOrder" Type="Int32" />
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="TotalPrice" Type="Int32" />
-          <NavigationProperty Name="Jewelry" Relationship="Self.FK_Order_Jewelry" FromRole="Order" ToRole="Jewelry" />
-          <NavigationProperty Name="StatusOrder" Relationship="Self.FK_Order_StatusOrder" FromRole="Order" ToRole="StatusOrder" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="OrderItem" Relationship="Self.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_Order_Jewelry" FromRole="Order" ToRole="Jewelry" />
+          <NavigationProperty Name="StatusOrder" Relationship="JewelryStoreModel.FK_Order_StatusOrder" FromRole="Order" ToRole="StatusOrder" />
+          <NavigationProperty Name="User" Relationship="JewelryStoreModel.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderItem" Relationship="JewelryStoreModel.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -398,18 +490,10 @@
           <Property Name="IdOrder" Type="Int32" />
           <Property Name="IdJewelry" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="UnitPrice" Type="Int32" />
-          <Property Name="TotalPrice" Type="Int32" />
-          <NavigationProperty Name="Jewelry" Relationship="Self.FK_OrderItem_Jewelry" FromRole="OrderItem" ToRole="Jewelry" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="IdRole" />
-          </Key>
-          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_OrderItem_Jewelry" FromRole="OrderItem" ToRole="Jewelry" />
+          <NavigationProperty Name="Order" Relationship="JewelryStoreModel.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
         </EntityType>
         <EntityType Name="StatusOrder">
           <Key>
@@ -417,7 +501,7 @@
           </Key>
           <Property Name="IdStatusOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameStatusOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_StatusOrder" FromRole="StatusOrder" ToRole="Order" />
+          <NavigationProperty Name="Order" Relationship="JewelryStoreModel.FK_Order_StatusOrder" FromRole="StatusOrder" ToRole="Order" />
         </EntityType>
         <EntityType Name="Stone">
           <Key>
@@ -427,7 +511,7 @@
           <Property Name="NameStone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ColorStone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="WeightStone" Type="Double" />
-          <NavigationProperty Name="Jewelry" Relationship="Self.FK_Jewelry_Stone" FromRole="Stone" ToRole="Jewelry" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_Jewelry_Stone" FromRole="Stone" ToRole="Jewelry" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -437,17 +521,7 @@
           <Property Name="NameSupplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneSupplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmailSupplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Jewelry" Relationship="Self.FK_Jewelry_Supplier" FromRole="Supplier" ToRole="Jewelry" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_Jewelry_Supplier" FromRole="Supplier" ToRole="Jewelry" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -459,203 +533,9 @@
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdRole" Type="Int32" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="CartItem" Relationship="JewelryStoreModel.FK_CartItem_User" FromRole="User" ToRole="CartItem" />
-        </EntityType>
-        <Association Name="FK_Jewelry_JewelryTip">
-          <End Role="JewelryTip" Type="Self.JewelryTip" Multiplicity="0..1" />
-          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JewelryTip">
-              <PropertyRef Name="IdJewelryTip" />
-            </Principal>
-            <Dependent Role="Jewelry">
-              <PropertyRef Name="IdJewelryTip" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Jewelry_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
-          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="IdMaterial" />
-            </Principal>
-            <Dependent Role="Jewelry">
-              <PropertyRef Name="IdMaterial" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Jewelry_Stone">
-          <End Role="Stone" Type="Self.Stone" Multiplicity="0..1" />
-          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stone">
-              <PropertyRef Name="IdStone" />
-            </Principal>
-            <Dependent Role="Jewelry">
-              <PropertyRef Name="IdStone" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Jewelry_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="IdSupplier" />
-            </Principal>
-            <Dependent Role="Jewelry">
-              <PropertyRef Name="IdSupplier" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Jewelry">
-          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jewelry">
-              <PropertyRef Name="IdJewelry" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="IdJewelry" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItem_Jewelry">
-          <End Role="Jewelry" Type="Self.Jewelry" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jewelry">
-              <PropertyRef Name="IdJewelry" />
-            </Principal>
-            <Dependent Role="OrderItem">
-              <PropertyRef Name="IdJewelry" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_StatusOrder">
-          <End Role="StatusOrder" Type="Self.StatusOrder" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusOrder">
-              <PropertyRef Name="IdStatusOrder" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="IdStatusOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="IdUser" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="IdUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItem_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="IdOrder" />
-            </Principal>
-            <Dependent Role="OrderItem">
-              <PropertyRef Name="IdOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="IdRole" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="IdRole" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="JewelryStoreEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Jewelry" EntityType="Self.Jewelry" />
-          <EntitySet Name="JewelryTip" EntityType="Self.JewelryTip" />
-          <EntitySet Name="Material" EntityType="Self.Material" />
-          <EntitySet Name="Order" EntityType="Self.Order" />
-          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="StatusOrder" EntityType="Self.StatusOrder" />
-          <EntitySet Name="Stone" EntityType="Self.Stone" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Jewelry_JewelryTip" Association="Self.FK_Jewelry_JewelryTip">
-            <End Role="JewelryTip" EntitySet="JewelryTip" />
-            <End Role="Jewelry" EntitySet="Jewelry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Jewelry_Material" Association="Self.FK_Jewelry_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Jewelry" EntitySet="Jewelry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Jewelry_Stone" Association="Self.FK_Jewelry_Stone">
-            <End Role="Stone" EntitySet="Stone" />
-            <End Role="Jewelry" EntitySet="Jewelry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Jewelry_Supplier" Association="Self.FK_Jewelry_Supplier">
-            <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="Jewelry" EntitySet="Jewelry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Jewelry" Association="Self.FK_Order_Jewelry">
-            <End Role="Jewelry" EntitySet="Jewelry" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Jewelry" Association="Self.FK_OrderItem_Jewelry">
-            <End Role="Jewelry" EntitySet="Jewelry" />
-            <End Role="OrderItem" EntitySet="OrderItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_StatusOrder" Association="Self.FK_Order_StatusOrder">
-            <End Role="StatusOrder" EntitySet="StatusOrder" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Order" Association="Self.FK_OrderItem_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="OrderItem" EntitySet="OrderItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <EntitySet Name="CartItem" EntityType="JewelryStoreModel.CartItem" />
-          <AssociationSet Name="FK_CartItem_Jewelry" Association="JewelryStoreModel.FK_CartItem_Jewelry">
-            <End Role="Jewelry" EntitySet="Jewelry" />
-            <End Role="CartItem" EntitySet="CartItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CartItem_User" Association="JewelryStoreModel.FK_CartItem_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="CartItem" EntitySet="CartItem" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="CartItem">
-          <Key>
-            <PropertyRef Name="IdCartItem" />
-          </Key>
-          <Property Name="IdCartItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdJewelry" Type="Int32" />
-          <Property Name="IdUser" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="AddedData" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Jewelry" Relationship="JewelryStoreModel.FK_CartItem_Jewelry" FromRole="CartItem" ToRole="Jewelry" />
-          <NavigationProperty Name="User" Relationship="JewelryStoreModel.FK_CartItem_User" FromRole="CartItem" ToRole="User" />
+          <NavigationProperty Name="Order" Relationship="JewelryStoreModel.FK_Order_User" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Role" Relationship="JewelryStoreModel.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_CartItem_Jewelry">
           <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="0..1" />
@@ -681,105 +561,137 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Jewelry_JewelryTip">
+          <End Type="JewelryStoreModel.JewelryTip" Role="JewelryTip" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JewelryTip">
+              <PropertyRef Name="IdJewelryTip" />
+            </Principal>
+            <Dependent Role="Jewelry">
+              <PropertyRef Name="IdJewelryTip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jewelry_Material">
+          <End Type="JewelryStoreModel.Material" Role="Material" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="IdMaterial" />
+            </Principal>
+            <Dependent Role="Jewelry">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jewelry_Stone">
+          <End Type="JewelryStoreModel.Stone" Role="Stone" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone">
+              <PropertyRef Name="IdStone" />
+            </Principal>
+            <Dependent Role="Jewelry">
+              <PropertyRef Name="IdStone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jewelry_Supplier">
+          <End Type="JewelryStoreModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="IdSupplier" />
+            </Principal>
+            <Dependent Role="Jewelry">
+              <PropertyRef Name="IdSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Jewelry">
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jewelry">
+              <PropertyRef Name="IdJewelry" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdJewelry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Jewelry">
+          <End Type="JewelryStoreModel.Jewelry" Role="Jewelry" Multiplicity="1" />
+          <End Type="JewelryStoreModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jewelry">
+              <PropertyRef Name="IdJewelry" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="IdJewelry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_StatusOrder">
+          <End Type="JewelryStoreModel.StatusOrder" Role="StatusOrder" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusOrder">
+              <PropertyRef Name="IdStatusOrder" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdStatusOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="JewelryStoreModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Order">
+          <End Type="JewelryStoreModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Type="JewelryStoreModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="JewelryStoreModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище JewelryStoreModelContainer" CdmEntityContainer="JewelryStoreEntities">
-          <EntitySetMapping Name="Jewelry">
-            <EntityTypeMapping TypeName="JewelryStoreModel.Jewelry">
-              <MappingFragment StoreEntitySet="Jewelry">
-                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
-                <ScalarProperty Name="NameJewelry" ColumnName="NameJewelry" />
-                <ScalarProperty Name="IdJewelryTip" ColumnName="IdJewelryTip" />
-                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
-                <ScalarProperty Name="IdStone" ColumnName="IdStone" />
-                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
-                <ScalarProperty Name="PriceJewelry" ColumnName="PriceJewelry" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JewelryTip">
-            <EntityTypeMapping TypeName="JewelryStoreModel.JewelryTip">
-              <MappingFragment StoreEntitySet="JewelryTip">
-                <ScalarProperty Name="IdJewelryTip" ColumnName="IdJewelryTip" />
-                <ScalarProperty Name="NameJewelryTip" ColumnName="NameJewelryTip" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Material">
-            <EntityTypeMapping TypeName="JewelryStoreModel.Material">
-              <MappingFragment StoreEntitySet="Material">
-                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
-                <ScalarProperty Name="NameMaterial" ColumnName="NameMaterial" />
-                <ScalarProperty Name="Proba" ColumnName="Proba" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Order">
-            <EntityTypeMapping TypeName="JewelryStoreModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
-                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
-                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
-                <ScalarProperty Name="IdStatusOrder" ColumnName="IdStatusOrder" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderItem">
-            <EntityTypeMapping TypeName="JewelryStoreModel.OrderItem">
-              <MappingFragment StoreEntitySet="OrderItem">
-                <ScalarProperty Name="IdOrderItem" ColumnName="IdOrderItem" />
-                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="JewelryStoreModel.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
                 <ScalarProperty Name="NameRole" ColumnName="NameRole" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatusOrder">
-            <EntityTypeMapping TypeName="JewelryStoreModel.StatusOrder">
-              <MappingFragment StoreEntitySet="StatusOrder">
-                <ScalarProperty Name="IdStatusOrder" ColumnName="IdStatusOrder" />
-                <ScalarProperty Name="NameStatusOrder" ColumnName="NameStatusOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stone">
-            <EntityTypeMapping TypeName="JewelryStoreModel.Stone">
-              <MappingFragment StoreEntitySet="Stone">
-                <ScalarProperty Name="IdStone" ColumnName="IdStone" />
-                <ScalarProperty Name="NameStone" ColumnName="NameStone" />
-                <ScalarProperty Name="ColorStone" ColumnName="ColorStone" />
-                <ScalarProperty Name="WeightStone" ColumnName="WeightStone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Supplier">
-            <EntityTypeMapping TypeName="JewelryStoreModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
-                <ScalarProperty Name="NameSupplier" ColumnName="NameSupplier" />
-                <ScalarProperty Name="PhoneSupplier" ColumnName="PhoneSupplier" />
-                <ScalarProperty Name="EmailSupplier" ColumnName="EmailSupplier" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -794,18 +706,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="JewelryStoreModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CartItem">
             <EntityTypeMapping TypeName="JewelryStoreModel.CartItem">
               <MappingFragment StoreEntitySet="CartItem">
@@ -817,7 +717,107 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Jewelry">
+            <EntityTypeMapping TypeName="JewelryStoreModel.Jewelry">
+              <MappingFragment StoreEntitySet="Jewelry">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="PriceJewelry" ColumnName="PriceJewelry" />
+                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
+                <ScalarProperty Name="IdStone" ColumnName="IdStone" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="IdJewelryTip" ColumnName="IdJewelryTip" />
+                <ScalarProperty Name="NameJewelry" ColumnName="NameJewelry" />
+                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JewelryTip">
+            <EntityTypeMapping TypeName="JewelryStoreModel.JewelryTip">
+              <MappingFragment StoreEntitySet="JewelryTip">
+                <ScalarProperty Name="NameJewelryTip" ColumnName="NameJewelryTip" />
+                <ScalarProperty Name="IdJewelryTip" ColumnName="IdJewelryTip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="JewelryStoreModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="Proba" ColumnName="Proba" />
+                <ScalarProperty Name="NameMaterial" ColumnName="NameMaterial" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="JewelryStoreModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="IdStatusOrder" ColumnName="IdStatusOrder" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItem">
+            <EntityTypeMapping TypeName="JewelryStoreModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItem">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdJewelry" ColumnName="IdJewelry" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="IdOrderItem" ColumnName="IdOrderItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusOrder">
+            <EntityTypeMapping TypeName="JewelryStoreModel.StatusOrder">
+              <MappingFragment StoreEntitySet="StatusOrder">
+                <ScalarProperty Name="NameStatusOrder" ColumnName="NameStatusOrder" />
+                <ScalarProperty Name="IdStatusOrder" ColumnName="IdStatusOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stone">
+            <EntityTypeMapping TypeName="JewelryStoreModel.Stone">
+              <MappingFragment StoreEntitySet="Stone">
+                <ScalarProperty Name="WeightStone" ColumnName="WeightStone" />
+                <ScalarProperty Name="ColorStone" ColumnName="ColorStone" />
+                <ScalarProperty Name="NameStone" ColumnName="NameStone" />
+                <ScalarProperty Name="IdStone" ColumnName="IdStone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="JewelryStoreModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="EmailSupplier" ColumnName="EmailSupplier" />
+                <ScalarProperty Name="PhoneSupplier" ColumnName="PhoneSupplier" />
+                <ScalarProperty Name="NameSupplier" ColumnName="NameSupplier" />
+                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="JewelryStoreModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

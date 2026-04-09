@@ -30,7 +30,7 @@ namespace JewelryStore.AppData
         public Nullable<int> IdStatusOrder { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> TotalPrice { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
     
         public virtual Jewelry Jewelry { get; set; }
         public virtual StatusOrder StatusOrder { get; set; }

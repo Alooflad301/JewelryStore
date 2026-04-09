@@ -148,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageAdminUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageAftoriz.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageJewelryCatalog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageOrderDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +191,9 @@
     <Compile Include="Pages\PageAdminPanel.xaml.cs">
       <DependentUpon>PageAdminPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageAdminUsers.xaml.cs">
+      <DependentUpon>PageAdminUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageAftoriz.xaml.cs">
       <DependentUpon>PageAftoriz.xaml</DependentUpon>
     </Compile>
@@ -194,6 +205,9 @@
     </Compile>
     <Compile Include="Pages\PageJewelryCatalog.xaml.cs">
       <DependentUpon>PageJewelryCatalog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageOrderDetails.xaml.cs">
+      <DependentUpon>PageOrderDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageReg.xaml.cs">
       <DependentUpon>PageReg.xaml</DependentUpon>

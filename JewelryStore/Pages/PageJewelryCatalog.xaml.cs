@@ -327,5 +327,10 @@ namespace JewelryStore.Pages
         {
             AppFrame.framemain.Navigate(new PageCart());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.framemain.Navigate(new PageUserOrders());
+        }
     }
 }
