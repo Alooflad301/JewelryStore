@@ -21,7 +21,7 @@ namespace JewelryStore.AppData
         public static JewelryStoreEntities GetNewContext()
         {
             return new JewelryStoreEntities();
-        }
+        } 
 
         // Добавление товара в корзину
         public static void AddItem(int jewelryId, int quantity = 1)

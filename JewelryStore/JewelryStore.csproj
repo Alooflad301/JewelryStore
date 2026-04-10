@@ -140,7 +140,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageAdminAddReferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageAdminJewelry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageAdminOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,8 +193,14 @@
     <Compile Include="Pages\PageAddEditJewelry.xaml.cs">
       <DependentUpon>PageAddEditJewelry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageAdminAddReferences.xaml.cs">
+      <DependentUpon>PageAdminAddReferences.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageAdminJewelry.xaml.cs">
       <DependentUpon>PageAdminJewelry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageAdminOrders.xaml.cs">
+      <DependentUpon>PageAdminOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageAdminPanel.xaml.cs">
       <DependentUpon>PageAdminPanel.xaml</DependentUpon>
@@ -258,6 +272,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\hatgpt.jpg" />
     <Resource Include="Images\Zagluhca.jpeg" />
     <Resource Include="Images\ring1.jpg" />
     <Resource Include="Images\ring2.jpg" />

@@ -1,109 +1,94 @@
 ﻿using JewelryStore.AppData;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace JewelryStore.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для PageAdminUsers.xaml
-    /// </summary>
     public partial class PageAdminUsers : Page
     {
+        private JewelryStoreEntities db;
+        public ObservableCollection<User> UsersList { get; set; }
+        public ObservableCollection<Role> RoleList { get; set; }
+        private bool _isEdited = false;
+
         public PageAdminUsers()
         {
             InitializeComponent();
-            Loaded += Page_Loaded;
+            db = AppConnect.model0db;
+            LoadData();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void LoadData()
         {
-            LoadUsers();
+            UsersList = new ObservableCollection<User>(db.User.Include("Role").ToList());
+            RoleList = new ObservableCollection<Role>(db.Role.ToList());
+            UsersGrid.ItemsSource = UsersList;
+            _isEdited = false;
+            SaveBtn.IsEnabled = false;
         }
 
-        private void LoadUsers()
+        private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new JewelryStoreEntities())
-            {
-                gridUsers.ItemsSource = db.User
-                    .Include("Role")
-                    .OrderBy(u => u.Login)
-                    .ToList();
-                tbStatus.Text = $"Пользователей: {db.User.Count()}";
-            }
+            LoadData();
+            MessageBox.Show("Список пользователей обновлён!");
         }
 
-        private void AddUserButton_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
-            // Простое добавление (диалог или новая страница)
-            var newUser = new User
+            try
             {
-                Login = "newuser",
-                Password = "123",
-                Phone = "+7(999)000-00-00",
-                Email = "new@jewelry.ru",
-                IdRole = 1
-            };
-
-            using (var db = new JewelryStoreEntities())
-            {
-                db.User.Add(newUser);
                 db.SaveChanges();
-                LoadUsers();
+                MessageBox.Show("Изменения пользователей сохранены!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка сохранения: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void EditUser_Click(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out int userId))
+            if (UsersGrid.SelectedItem is User selectedUser && selectedUser.IdUser != CurrentUser.IdUser)
             {
-                // Сохраняем изменения из DataGrid
-                using (var db = new JewelryStoreEntities())
+                if (MessageBox.Show($"Удалить пользователя {selectedUser.Login}?", "Подтверждение",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var user = db.User.Find(userId);
-                    if (user != null)
+                    try
                     {
-                        // Обновляем из gridUsers.SelectedItem или диалога
+                        db.User.Remove(selectedUser);
                         db.SaveChanges();
-                        MessageBox.Show("✅ Пользователь обновлён!");
-                        LoadUsers();
+                        LoadData();
+                        MessageBox.Show("Пользователь удалён!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка удаления: " + ex.Message);
                     }
                 }
             }
-        }
-
-        private void DeleteUser_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out int userId) &&
-                MessageBox.Show("Удалить пользователя?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            else
             {
-                using (var db = new JewelryStoreEntities())
-                {
-                    var user = db.User.Find(userId);
-                    if (user != null && user.IdUser != 1)  // Не удаляем админа!
-                    {
-                        db.User.Remove(user);
-                        db.SaveChanges();
-                        LoadUsers();
-                    }
-                }
+                MessageBox.Show("Выберите другого пользователя (не себя)!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        private void UsersGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            LoadUsers();
+            _isEdited = true;
+            SaveBtn.IsEnabled = true;
+        }
+
+        private void UsersGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+        }
+
+        private void UsersGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (_isEdited) SaveBtn.IsEnabled = true;
         }
     }
 }

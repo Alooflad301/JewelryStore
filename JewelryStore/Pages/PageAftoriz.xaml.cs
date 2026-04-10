@@ -30,6 +30,7 @@ namespace JewelryStore.Pages
         private void Regtodt_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.Navigate(new PageReg());
+
         }
 
         private void DaBtn_Click(object sender, RoutedEventArgs e)

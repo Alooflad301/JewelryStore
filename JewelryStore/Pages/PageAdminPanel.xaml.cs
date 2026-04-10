@@ -38,12 +38,17 @@ namespace JewelryStore.Pages
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            Adminfarme.Navigate(new PageAdminOrders());
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Adminfarme.Navigate(new PageAdminUsers());
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Adminfarme.Navigate(new PageAdminAddReferences());
         }
     }
 }

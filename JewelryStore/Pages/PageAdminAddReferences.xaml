@@ -1,0 +1,148 @@
+﻿<Page x:Class="JewelryStore.Pages.PageAdminAddReferences"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      Title="Добавление справочников">
+
+    <Grid Background="#FF92E068">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Добавление справочников" FontSize="28" HorizontalAlignment="Center" Margin="20"/>
+
+        <TabControl Grid.Row="1" Margin="10">
+            <!-- Типы украшений -->
+            <TabItem Header="Типы украшений">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название типа:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="TipNameTxt" Grid.Row="0" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Button Grid.Row="1" Grid.Column="1" Content="Добавить тип" Click="AddJewelryTip_Click" 
+                            HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,8" Height="40"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Материалы -->
+            <TabItem Header="Материалы">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="MatNameTxt" Grid.Row="0" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Проба:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="MatProbaTxt" Grid.Row="1" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Button Grid.Row="2" Grid.Column="1" Content="Добавить материал" Click="AddMaterial_Click" 
+                            HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,8" Height="40"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Камни -->
+            <TabItem Header="Камни">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="StoneNameTxt" Grid.Row="0" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Цвет:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="StoneColorTxt" Grid.Row="1" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Вес (г):" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="StoneWeightTxt" Grid.Row="2" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Button Grid.Row="3" Grid.Column="1" Content="Добавить камень" Click="AddStone_Click" 
+                            HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,8" Height="40"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Поставщики -->
+            <TabItem Header="Поставщики">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="SuppNameTxt" Grid.Row="0" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Телефон:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="SuppPhoneTxt" Grid.Row="1" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Email:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="SuppEmailTxt" Grid.Row="2" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Button Grid.Row="3" Grid.Column="1" Content="Добавить поставщика" Click="AddSupplier_Click" 
+                            HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,8" Height="40"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Статусы заказов -->
+            <TabItem Header="Статусы заказов">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название статуса:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="StatusNameTxt" Grid.Row="0" Grid.Column="1" Margin="10,5" Padding="5" Height="30"/>
+
+                    <Button Grid.Row="1" Grid.Column="1" Content="Добавить статус" Click="AddStatusOrder_Click" 
+                            HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,8" Height="40"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Button Grid.Row="2" x:Name="RefreshAllBtn" Content="Обновить контекст" Click="RefreshAll_Click" 
+                HorizontalAlignment="Center" Margin="20" Padding="20,10" Height="40"/>
+    </Grid>
+</Page>

@@ -46,7 +46,7 @@ namespace JewelryStore.Pages
             ComdoMat.Items.Add("Тип Материала");
             foreach (var a in categorya)
             {
-                ComdoMat.Items.Add(a.NameMaterial);
+                ComdoMat.Items.Add($"{a.NameMaterial}({a.Proba})");
             }
             ComdoStone.SelectedIndex = 0;
             var categoryb = AppConnect.model0db.Stone;

@@ -3,51 +3,47 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:JewelryStore.Pages"
-      mc:Ignorable="d" 
-      d:DesignWidth="1200" d:DesignHeight="600">
-    <Grid Background="#FFE69191">
+      mc:Ignorable="d"
+       d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageAdminUsers">
+
+    <Grid Background="#FF4E9440">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок + кнопки -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,20,20,10" Background="White">
-            <TextBlock Text="👥 Пользователи" FontSize="28" FontWeight="Bold" VerticalAlignment="Center"/>
-            <Button x:Name="AddUserButton" Content="➕ Добавить" Width="120" Height="35" Margin="20,0" 
-                    Click="AddUserButton_Click"/>
-            <Button x:Name="RefreshButton" Content="🔄 Обновить" Width="120" Height="35" Margin="10,0" 
-                    Click="RefreshButton_Click"/>
-        </StackPanel>
+        <TextBlock Grid.Row="0" Text="Управление пользователями" FontSize="24" HorizontalAlignment="Center" Margin="10"/>
 
-        <!-- DataGrid пользователей -->
-        <DataGrid Grid.Row="1" x:Name="gridUsers" Margin="20,10" AutoGenerateColumns="False" 
-                  CanUserAddRows="False">
+        <DataGrid Grid.Row="1" x:Name="UsersGrid" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" BeginningEdit="UsersGrid_BeginningEdit" CellEditEnding="UsersGrid_CellEditEnding" IsReadOnly="False" SelectionMode="Single" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="60"/>
-                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="140" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Роль" Binding="{Binding Role.NameRole}" Width="100"/>
-                <DataGridTemplateColumn Header="Действия" Width="140">
+                <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="50" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="120"/>
+                <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="120"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="130"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTemplateColumn Header="Роль" Width="150">
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox x:Name="RoleCombo" SelectedValuePath="IdRole" DisplayMemberPath="NameRole"
+                                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=RoleList}"
+                                      SelectedValue="{Binding IdRole}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="✏️" Width="30" Margin="2" Click="EditUser_Click" Tag="{Binding IdUser}"/>
-                                <Button Content="🗑️" Width="30" Margin="2" Click="DeleteUser_Click" Tag="{Binding IdUser}"/>
-                            </StackPanel>
+                            <TextBlock Text="{Binding Role.NameRole}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Статус -->
-        <Border Grid.Row="2" Height="80" Margin="20,0">
-            <TextBlock x:Name="tbStatus" Text="Пользователей: 0" FontSize="18" FontWeight="Bold" 
-                       Foreground="White" VerticalAlignment="Center" Margin="20"/>
-        </Border>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="RefreshBtn" Content="Обновить" Click="Refresh_Click" Margin="5" Padding="15,5" Height="34"/>
+            <Button x:Name="SaveBtn" Content="Сохранить изменения" Click="Save_Click" Margin="5" Padding="15,5" Height="34"/>
+            <Button x:Name="DeleteBtn" Content="Удалить выбранного" Click="Delete_Click" Margin="5" Padding="15,5" Height="34"/>
+        </StackPanel>
     </Grid>
 </Page>

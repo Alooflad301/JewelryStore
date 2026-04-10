@@ -2,20 +2,17 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:JewelryStore.Pages"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="800"
       Title="PageAddEditJewelry" Loaded="Page_Loaded">
 
     <Grid Background="#FFF0F0F0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Заголовок -->
             <RowDefinition Height="Auto"/>
-            <!-- Форма -->
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <!-- Кнопки -->
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
@@ -24,28 +21,28 @@
                    Margin="20" Foreground="#FF421A56"/>
 
         <!-- Форма -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
                 <!-- Название -->
                 <TextBlock Text="Название украшения:" FontWeight="Bold" Margin="0,10,0,5"/>
                 <TextBox x:Name="NameJewelryText" Height="30" FontSize="16"/>
 
-                <!-- ComboBox: Тип -->
+                <!-- Тип -->
                 <TextBlock Text="Тип украшения:" FontWeight="Bold" Margin="0,10,0,5"/>
                 <ComboBox x:Name="JewelryTipCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameJewelryTip" SelectedValuePath="IdJewelryTip"/>
 
-                <!-- ComboBox: Материал -->
+                <!-- Материал -->
                 <TextBlock Text="Материал:" FontWeight="Bold" Margin="0,10,0,5"/>
                 <ComboBox x:Name="MaterialCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameMaterial" SelectedValuePath="IdMaterial"/>
 
-                <!-- ComboBox: Камень (опционально) -->
+                <!-- Камень -->
                 <TextBlock Text="Камень:" FontWeight="Bold" Margin="0,10,0,5"/>
                 <ComboBox x:Name="StoneCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameStone" SelectedValuePath="IdStone"/>
 
-                <!-- ComboBox: Поставщик -->
+                <!-- Поставщик -->
                 <TextBlock Text="Поставщик:" FontWeight="Bold" Margin="0,10,0,5"/>
                 <ComboBox x:Name="SupplierCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameSupplier" SelectedValuePath="IdSupplier"/>
@@ -54,14 +51,23 @@
                 <TextBlock Text="Цена (руб.):" FontWeight="Bold" Margin="0,10,0,5"/>
                 <TextBox x:Name="PriceText" Height="30" FontSize="16"/>
 
-                <!-- Путь к изображению -->
-                <TextBlock Text="Путь к изображению:" FontWeight="Bold" Margin="0,10,0,5"/>
-                <TextBox x:Name="ImagePathText" Height="30" FontSize="16"/>
+                <!-- Изображение -->
+                <TextBlock Text="Изображение:" FontWeight="Bold" Margin="0,10,0,5"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ImagePathText" Grid.Column="0" Height="30" FontSize="16"/>
+                    <Button x:Name="SelectImageBtn" Grid.Column="1" Content="📁 Выбрать" 
+                            Width="100" Height="30" Margin="5,0,0,0" Click="SelectImageBtn_Click"/>
+                </Grid>
+                <Image x:Name="ImagePreview" Height="150" Stretch="Uniform" Margin="0,0,0,10"/>
             </StackPanel>
         </ScrollViewer>
 
         <!-- Кнопки -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
             <Button x:Name="SaveButton" Content="💾 Сохранить" Width="120" Height="40" 
                     FontSize="18" Margin="10" Click="SaveButton_Click"/>
             <Button x:Name="CancelButton" Content="❌ Отмена" Width="120" Height="40" 

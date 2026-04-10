@@ -1,0 +1,48 @@
+﻿<Page x:Class="JewelryStore.Pages.PageAdminOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+       d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageAdminOrders">
+
+    <Grid Background="#FF19FF66">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Управление заказами" FontSize="24" HorizontalAlignment="Center" Margin="10"/>
+
+        <DataGrid Grid.Row="1" x:Name="OrdersGrid" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdOrder}" Width="50"/>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding CustomerName}" Width="*"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding CustomerPhone}" Width="120"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="100"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy}" Width="100"/>
+                <DataGridTemplateColumn Header="Статус" Width="150">
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox x:Name="StatusCombo" SelectedValuePath="IdStatusOrder" DisplayMemberPath="NameStatusOrder"
+                                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=StatusList}"
+                                      SelectedValue="{Binding IdStatusOrder}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StatusOrder.NameStatusOrder}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="RefreshBtn" Content="Обновить" Click="Refresh_Click" Margin="5" Padding="15,5" Height="34"/>
+            <Button x:Name="SaveBtn" Content="Сохранить изменения" Click="Save_Click" Margin="5" Padding="15,5" Height="34"/>
+        </StackPanel>
+    </Grid>
+</Page>

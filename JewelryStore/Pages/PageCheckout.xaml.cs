@@ -17,6 +17,24 @@ namespace JewelryStore.Pages
             InitializeComponent();
             LoadCart();
         }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (AppData.CurrentUser.IdUser.HasValue)
+            {
+                using (var db = ShoppingCart.GetNewContext())
+                {
+                    var user = db.User.FirstOrDefault(u => u.IdUser == AppData.CurrentUser.IdUser);
+                    if (user != null)
+                    {
+                        CustomerNameText.Text = user.Login;
+                        PhoneText.Text = user.Phone ?? "";
+                        EmailText.Text = user.Email ?? "";
+                    }
+                }
+            }
+
+            LoadCart();
+        }
 
         private void LoadCart()
         {
