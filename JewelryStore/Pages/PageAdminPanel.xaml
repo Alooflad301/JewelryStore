@@ -37,6 +37,6 @@
             <Button Grid.Column="3" Content="Все категории" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_3"/>
             <Button Grid.Column="4" Content="Обычный каталог" Height="34" FontSize="18" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Catalog_Click"/>
         </Grid>
-        <Frame x:Name="Adminfarme" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="Adminfarme" Grid.Row="1" NavigationUIVisibility="Hidden" Background="#FF065403"/>
     </Grid>
 </Page>

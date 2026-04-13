@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>ring256.ico</ApplicationIcon>
+    <ApplicationIcon>value_diamond_gem_jewel_jeweller_icon_124706.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -336,6 +336,14 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\sergirub_1.jpg" />
+    <Resource Include="Images\bar.jpg" />
+    <Resource Include="Images\cul.jpg" />
+    <Resource Include="Images\ring3.jpg" />
+    <Resource Include="Images\ringsatyr.jpg" />
+    <Resource Include="Images\sergirub.jpg" />
+    <Resource Include="value_diamond_gem_jewel_jeweller_icon_124706.ico" />
+    <Resource Include="Images\value_diamond_gem_jewel_jeweller_icon_124706.png" />
     <Resource Include="Images\hatgpt.jpg" />
     <Resource Include="Images\Zagluhca.jpeg" />
     <Resource Include="Images\ring1.jpg" />

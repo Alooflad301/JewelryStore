@@ -5,15 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JewelryStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1000" d:MinHeight="700"
+      d:DesignHeight="650" d:DesignWidth="900"
       Title="PageCheckout" Loaded="Page_Loaded">
 
-    <Grid Margin="20" Background="#FFEFA068">
+    <Grid Margin="20" Background="#FF65AD00">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Column="0" x:Name="listCartPreview" Height="80">
+            <ListView Grid.Column="0" x:Name="listCartPreview" Height="150">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="5" Background="LightGray">
@@ -76,11 +76,11 @@
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="ConfirmOrderButton" Content="Оформить заказ" 
                     Width="200" Height="50" FontSize="18" FontWeight="Bold"
-                    Background="#FF2E7D32" Foreground="White" 
+                    Background="Red" Foreground="White" 
                     Click="ConfirmOrderButton_Click" Margin="15"/>
             <Button x:Name="BackButton" Content="Вернуться в корзину" 
                     Width="200" Height="50" FontSize="18"
-                    Background="#FF757575" Foreground="White" 
+                    Background="#FF0056FF" Foreground="White" 
                     Click="BackButton_Click" Margin="15"/>
         </StackPanel>
     </Grid>

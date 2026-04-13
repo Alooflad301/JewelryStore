@@ -29,6 +29,11 @@ namespace JewelryStore.Pages
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Window.GetWindow(this) is Window window)
+            {
+                window.MinWidth = 900;
+                window.MinHeight = 650;
+            }
             if (AppData.CurrentUser.IdUser.HasValue)
             {
                 using (var db = ShoppingCart.GetNewContext())

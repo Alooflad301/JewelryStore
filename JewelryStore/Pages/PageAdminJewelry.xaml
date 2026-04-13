@@ -33,8 +33,8 @@
                   SelectionChanged="ListView_SelectionChanged">
             <ListView.Background>
                 <RadialGradientBrush>
-                    <GradientStop Color="#FFCACACA" Offset="0"/>
-                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                    <GradientStop Color="#FFCACACA" Offset="1"/>
+                    <GradientStop Color="#FFB7B7B7" Offset="0"/>
                 </RadialGradientBrush>
             </ListView.Background>
 

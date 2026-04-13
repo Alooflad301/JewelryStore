@@ -7,13 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
       Title="PageCart">
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFFFD40A"/>
-                <GradientStop Color="#FFE02626" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <Grid Background="#FF4FAF03">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
