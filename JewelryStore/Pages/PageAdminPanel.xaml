@@ -31,12 +31,19 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Каталог" Height="34" FontSize="20" FontFamily="Nirmala UI" Click="Button_Click" HorizontalAlignment="Stretch"/>
-            <Button Grid.Column="1" Content="Заказы" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_1"/>
-            <Button Grid.Column="2" Content="Пользователи" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_2"/>
-            <Button Grid.Column="3" Content="Все категории" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_3"/>
-            <Button Grid.Column="4" Content="Обычный каталог" Height="34" FontSize="18" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Catalog_Click"/>
+            <Button Grid.Column="0" Content="Каталог" Height="34" FontSize="20" FontFamily="Nirmala UI" Click="Button_Click" HorizontalAlignment="Stretch" Background="White"/>
+            <Button Grid.Column="1" Content="Заказы" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_1" Background="White"/>
+            <Button Grid.Column="2" Content="Пользователи" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_2" Background="White"/>
+            <Button Grid.Column="3" Content="Все категории" Height="34" FontSize="20" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Button_Click_3" Background="White"/>
+            <Button Grid.Column="4" Content="Обычный каталог" Height="34" FontSize="18" FontFamily="Nirmala UI" HorizontalAlignment="Stretch" Click="Catalog_Click" Background="White"/>
         </Grid>
-        <Frame x:Name="Adminfarme" Grid.Row="1" NavigationUIVisibility="Hidden" Background="#FF065403"/>
+        <Frame x:Name="Adminfarme" Grid.Row="1" NavigationUIVisibility="Hidden">
+            <Frame.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF64FB82"/>
+                    <GradientStop Color="#FF54A564" Offset="1"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+        </Frame>
     </Grid>
 </Page>

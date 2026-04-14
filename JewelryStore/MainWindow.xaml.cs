@@ -56,7 +56,7 @@ namespace JewelryStore
             else if (e.Content is PageCheckout)
             {
                 this.MinWidth = 900;
-                this.MinHeight = 650;
+                this.MinHeight = 750;
             }
             else if (e.Content is PageUserOrders)
             {

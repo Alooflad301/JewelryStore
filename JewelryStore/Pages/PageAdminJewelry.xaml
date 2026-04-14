@@ -7,6 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1250"
       Title="PageAdminJewelry" Loaded="Page_Loaded">
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF64FB82"/>
+            <GradientStop Color="#FF54A564" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Background>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,23 +26,17 @@
 
         <!-- Панель кнопок администратора -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10,10,5">
-            <Button x:Name="AddButton" Content="➕ Добавить" Height="35" Width="120" 
-                    FontSize="16" Margin="5" Click="AddButton_Click"/>
-            <Button x:Name="EditButton" Content="✏️ Редактировать" Height="35" Width="130" 
-                    FontSize="16" Margin="5" Click="EditButton_Click" IsEnabled="False"/>
-            <Button x:Name="DeleteButton" Content="🗑️ Удалить" Height="35" Width="120" 
-                    FontSize="16" Margin="5" Click="DeleteButton_Click" IsEnabled="False"/>
+            <Button x:Name="AddButton" Padding="5" Content="➕ Добавить" Height="35" Width="120" 
+                    FontSize="16" Margin="5"  Click="AddButton_Click" Background="White" FontFamily="Nirmala UI" FontWeight="Bold"/>
+            <Button x:Name="EditButton" Padding="5" Content="✏️ Редактировать" Height="35"
+                    FontSize="16" Margin="5" Click="EditButton_Click" IsEnabled="False" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
+            <Button x:Name="DeleteButton" Padding="5" Content="🗑️ Удалить" Height="35" 
+                    FontSize="16" Margin="5" Click="DeleteButton_Click" IsEnabled="False" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
         </StackPanel>
 
         <!-- ListView товаров (без фильтров) -->
         <ListView Grid.Row="1" x:Name="listProduct" Margin="10,5,10,10" 
-                  SelectionChanged="ListView_SelectionChanged">
-            <ListView.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="#FFCACACA" Offset="1"/>
-                    <GradientStop Color="#FFB7B7B7" Offset="0"/>
-                </RadialGradientBrush>
-            </ListView.Background>
+                  SelectionChanged="ListView_SelectionChanged" Background="White" FontFamily="Nirmala UI">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -81,10 +81,10 @@
                    VerticalAlignment="Center" Foreground="White" FontSize="18" FontWeight="Bold"/>
 
         <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#FFD41891" Offset="0"/>
-                <GradientStop Color="#FF421A56" Offset="1"/>
-            </RadialGradientBrush>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
         </Grid.Background>
     </Grid>
 </Page>

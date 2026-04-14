@@ -117,6 +117,51 @@ namespace JewelryStore.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(NameJewelryText.Text))
+            {
+                MessageBox.Show("Введите название украшения!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NameJewelryText.Focus();
+                NameJewelryText.SelectAll();
+                return;
+            }
+
+            if (JewelryTipCombo.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите тип украшения!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                JewelryTipCombo.Focus();
+                return;
+            }
+
+            if (MaterialCombo.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите материал!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MaterialCombo.Focus();
+                return;
+            }
+
+            if (SupplierCombo.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите поставщика!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SupplierCombo.Focus();
+                return;
+            }
+
+            if (!decimal.TryParse(PriceText.Text, out decimal price) || price <= 0)
+            {
+                MessageBox.Show("Введите корректную цену (больше 0)!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                PriceText.Focus();
+                PriceText.SelectAll();
+                return;
+            }
+
+            // Проверка на длину имени
+            if (NameJewelryText.Text.Length < 2)
+            {
+                MessageBox.Show("Название украшения должно содержать не менее 2 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NameJewelryText.Focus();
+                return;
+            }
+
             try
             {
                 Jewelry jewelry;
@@ -136,7 +181,7 @@ namespace JewelryStore.Pages
                 jewelry.IdMaterial = MaterialCombo.SelectedValue is int matId ? matId : 1;
                 jewelry.IdStone = StoneCombo.SelectedValue as int?;
                 jewelry.IdSupplier = SupplierCombo.SelectedValue is int suppId ? suppId : 1;
-                jewelry.PriceJewelry = decimal.TryParse(PriceText.Text, out decimal price) ? price : 0m;
+                jewelry.PriceJewelry = price;
                 jewelry.ImagePath = ImagePathText.Text;
 
                 AppConnect.model0db.SaveChanges();

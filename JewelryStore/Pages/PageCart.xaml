@@ -7,21 +7,21 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
       Title="PageCart">
-    <Grid Background="#FF4FAF03">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
 
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Корзина" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="#FF421A56"/>
-        <ListView Grid.Row="1" x:Name="listCart" Margin="20,10">
-            <ListView.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="#FFCACACA" Offset="0"/>
-                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
-                </RadialGradientBrush>
-            </ListView.Background>
+        <TextBlock Grid.Row="0" Text="Корзина" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="20" Foreground="Black" FontFamily="Nirmala UI"/>
+        <ListView Grid.Row="1" x:Name="listCart" Margin="20,10" Background="White" FontFamily="Nirmala UI" SelectionChanged="listCart_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="1" Margin="2" CornerRadius="8">
@@ -66,11 +66,11 @@
             </ListView.ItemTemplate>
         </ListView>
         <Border Grid.Row="2" Height="80" Margin="20,0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="{Binding ElementName=listCart, Path=Items.Count, StringFormat='Товаров: {0}'}" FontSize="24" FontWeight="Bold" Margin="0,0,30,0" Foreground="White"/>
-                <TextBlock x:Name="tbTotal" Text="Итого: 0 руб." FontSize="24" FontWeight="Bold" Foreground="White"/>
-                <Button x:Name="CheckoutButton" Content="Оформить заказ" Width="160" Height="45" FontSize="18" Margin="20,0" Click="CheckoutButton_Click"/>
-                <Button x:Name="CatalogResButton" Content="Каталог" Width="100" Height="45"  FontSize="18" Margin="10,0" Click="CatalogResButton_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                <TextBlock Text="{Binding ElementName=listCart, Path=Items.Count, StringFormat='Товаров: {0}'}" FontSize="24" FontWeight="Bold" Margin="0,0,30,0" Foreground="Black" VerticalAlignment="Center" FontFamily="Nirmala UI"/>
+                <TextBlock x:Name="tbTotal" Text="Итого: 0 руб." FontSize="24" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center" FontFamily="Nirmala UI"/>
+                <Button x:Name="CheckoutButton" Content="Оформить заказ" Width="160" Height="45" FontSize="18" Margin="20,0" Click="CheckoutButton_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
+                <Button x:Name="CatalogResButton" Content="Каталог" Width="100" Height="45"  FontSize="18" Margin="10,0" Click="CatalogResButton_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
             </StackPanel>
         </Border>
     </Grid>

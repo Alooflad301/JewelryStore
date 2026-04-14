@@ -35,6 +35,35 @@ namespace JewelryStore.Pages
 
         private void DaBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(TextLogin.Text?.Trim()))
+            {
+                MessageBox.Show("Введите логин!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TextLogin.Focus();
+                TextLogin.SelectAll();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(PassBox.Password?.Trim()))
+            {
+                MessageBox.Show("Введите пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                PassBox.Focus();
+                return;
+            }
+
+            if (TextLogin.Text.Length < 3)
+            {
+                MessageBox.Show("Логин должен содержать не менее 3 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TextLogin.Focus();
+                return;
+            }
+
+            if (PassBox.Password.Length < 6)
+            {
+                MessageBox.Show("Пароль должен содержать не менее 6 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                PassBox.Focus();
+                return;
+            }
+
             try
             {
                 var userObj = AppData.AppConnect.model0db.User.FirstOrDefault(x => x.Login == TextLogin.Text && x.Password == PassBox.Password);

@@ -8,7 +8,13 @@
       d:DesignHeight="600" d:DesignWidth="1250"
       Title="PageUserOrders" Loaded="Page_Loaded">
 
-    <Grid Background="#FFD84848">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -17,9 +23,9 @@
 
         <!-- Заголовок + фильтр -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,20,20,10">
-            <TextBlock Text="📋 Мои заказы" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+            <TextBlock Text="Мои заказы" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0" FontFamily="Nirmala UI"/>
             <ComboBox x:Name="StatusFilter" Width="200" Height="35" Margin="10" 
-                      SelectionChanged="StatusFilter_SelectionChanged" FontSize="14">
+                      SelectionChanged="StatusFilter_SelectionChanged" FontSize="14" FontFamily="Nirmala UI">
                 <ComboBoxItem Content="Все"/>
                 <ComboBoxItem Content="Новый"/>
                 <ComboBoxItem Content="Подтверждён"/>
@@ -27,8 +33,8 @@
                 <ComboBoxItem Content="Отправлен"/>
                 <ComboBoxItem Content="Доставлен"/>
             </ComboBox>
-            <Button x:Name="BackCatalogButton" Content="🏪 Каталог" Width="140" Height="35" Margin="10" 
-                    FontSize="16" Click="BackCatalogButton_Click"/>
+            <Button x:Name="BackCatalogButton" Content="Каталог" Width="140" Height="35" Margin="10" 
+                    FontSize="16" Click="BackCatalogButton_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
         </StackPanel>
 
         <!-- ListView заказов (горизонтальное) -->

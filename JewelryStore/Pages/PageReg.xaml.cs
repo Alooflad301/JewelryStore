@@ -31,6 +31,66 @@ namespace JewelryStore.Pages
 
         private void RegBut_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(LoginBox.Text))
+            {
+                MessageBox.Show("Введите логин!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                LoginBox.Focus();
+                LoginBox.SelectAll();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(TelevonBox.Text) || !ValidatePhone(TelevonBox.Text))
+            {
+                MessageBox.Show("Введите корректный телефон в формате: +7 (999) 123-45-67 или 89991234567.",
+                                "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TelevonBox.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(EmailBox.Text) || !ValidateEmail(EmailBox.Text))
+            {
+                MessageBox.Show("Введите корректный e‑mail адрес.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                EmailBox.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Password1.Password))
+            {
+                MessageBox.Show("Введите пароль!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Password1.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Password2.Password) || Password1.Password != Password2.Password)
+            {
+                MessageBox.Show("Пароли не совпадают или одно из полей пусто.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Password2.Focus();
+                return;
+            }
+
+            // Проверка длины логина и пароля (пример)
+            if (LoginBox.Text.Length < 3)
+            {
+                MessageBox.Show("Логин должен содержать не менее 3 символов.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                LoginBox.Focus();
+                return;
+            }
+
+            if (Password1.Password.Length < 6)
+            {
+                MessageBox.Show("Пароль должен содержать не менее 6 символов.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Password1.Focus();
+                return;
+            }
+
+            // Проверка существования логина в БД
+            if (AppConnect.model0db.User.Any(x => x.Login == LoginBox.Text.Trim()))
+            {
+                MessageBox.Show("Пользователь с таким логином уже существует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoginBox.Focus();
+                LoginBox.SelectAll();
+                return;
+            }
 
             try
             {
@@ -95,6 +155,29 @@ namespace JewelryStore.Pages
         private void HomeBut_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.GoBack();
+        }
+        private bool ValidatePhone(string phone)
+        {
+            // Пример очень простой валидации: начинается с +7 или 8 и содержит только цифры/допустимые символы
+            phone = phone?.Replace(" ", "").Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "").Trim();
+            return !string.IsNullOrEmpty(phone) && phone.Length >= 10 && phone.Length <= 15 && phone.All(char.IsDigit);
+        }
+
+        private bool ValidateEmail(string email)
+        {
+            // Простая проверка: содержит @ и домен
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

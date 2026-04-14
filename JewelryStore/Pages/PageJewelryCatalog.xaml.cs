@@ -27,6 +27,7 @@ namespace JewelryStore.Pages
             listProduct.ItemsSource = AppConnect.model0db.Jewelry.ToList();
             Fill();
             this.Loaded += Jc;
+            CheckOrdersButtonState();
         }
         public void Fill()
         {
@@ -292,6 +293,7 @@ namespace JewelryStore.Pages
             {
                 this.MinWidth = 1350;
                 this.MinHeight = 450;
+                CheckOrdersButtonState();
             }
         }
 
@@ -299,6 +301,7 @@ namespace JewelryStore.Pages
         {
             Sbros();
         }
+
 
         private void AdminPanelBottun_Loaded(object sender, RoutedEventArgs e)
         {
@@ -331,6 +334,21 @@ namespace JewelryStore.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.Navigate(new PageUserOrders());
+        }
+
+        private void CheckOrdersButtonState()
+        {
+            bool hasOrders = false;
+
+            if (CurrentUser.IdUser.HasValue)
+            {
+                using (var db = ShoppingCart.GetNewContext())
+                {
+                    hasOrders = db.Order.Any(o => o.IdUser == CurrentUser.IdUser);
+                }
+            }
+            OrderBut.IsEnabled = hasOrders;
+            OrderBut.Opacity = hasOrders ? 1.0 : 0.5;
         }
     }
 }
