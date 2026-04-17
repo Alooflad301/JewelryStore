@@ -32,79 +32,36 @@ namespace JewelryStore.Pages
             LoadStatusOrderList();
         }
 
-        // Отображение существующих типов украшений
+        // === ЗАГРУЗКА СПИСКОВ ===
+
         private void LoadJewelryTipList()
         {
-            var items = db.JewelryTip.Select(t => new
-            {
-                Id = t.IdJewelryTip,
-                Name = t.NameJewelryTip
-            }).ToList();
-
-            listJewelryTip.ItemsSource = items;
-            listJewelryTip.DisplayMemberPath = "Name";
-            listJewelryTip.SelectedValuePath = "Id";
+            listJewelryTip.ItemsSource = db.JewelryTip.ToList();
+            listJewelryTip.DisplayMemberPath = "NameJewelryTip";
         }
 
-        // Отображение материалов
         private void LoadMaterialList()
         {
-            var items = db.Material.Select(m => new
-            {
-                Id = m.IdMaterial,
-                Name = m.NameMaterial,
-                Proba = m.Proba
-            }).ToList();
-
-            listMaterial.ItemsSource = items;
-            listMaterial.DisplayMemberPath = "Name";
-            listMaterial.SelectedValuePath = "Id";
+            listMaterial.ItemsSource = db.Material.ToList();
+            listMaterial.DisplayMemberPath = "NameMaterial";
         }
 
-        // Отображение камней
         private void LoadStoneList()
         {
-            var items = db.Stone.Select(s => new
-            {
-                Id = s.IdStone,
-                Name = s.NameStone,
-                Color = s.ColorStone,
-                Weight = s.WeightStone
-            }).ToList();
-
-            listStone.ItemsSource = items;
-            listStone.DisplayMemberPath = "Name";
-            listStone.SelectedValuePath = "Id";
+            listStone.ItemsSource = db.Stone.ToList();
+            listStone.DisplayMemberPath = "NameStone";
         }
 
-        // Отображение поставщиков
         private void LoadSupplierList()
         {
-            var items = db.Supplier.Select(s => new
-            {
-                Id = s.IdSupplier,
-                Name = s.NameSupplier,
-                Phone = s.PhoneSupplier,
-                Email = s.EmailSupplier
-            }).ToList();
-
-            listSupplier.ItemsSource = items;
-            listSupplier.DisplayMemberPath = "Name";
-            listSupplier.SelectedValuePath = "Id";
+            listSupplier.ItemsSource = db.Supplier.ToList();
+            listSupplier.DisplayMemberPath = "NameSupplier";
         }
 
-        // Отображение статусов заказов
         private void LoadStatusOrderList()
         {
-            var items = db.StatusOrder.Select(s => new
-            {
-                Id = s.IdStatusOrder,
-                Name = s.NameStatusOrder
-            }).ToList();
-
-            listStatusOrder.ItemsSource = items;
-            listStatusOrder.DisplayMemberPath = "Name";
-            listStatusOrder.SelectedValuePath = "Id";
+            listStatusOrder.ItemsSource = db.StatusOrder.ToList();
+            listStatusOrder.DisplayMemberPath = "NameStatusOrder";
         }
 
         // === ДОБАВЛЕНИЕ ТИПОВ УКРАШЕНИЙ ===
@@ -251,7 +208,6 @@ namespace JewelryStore.Pages
                 return;
             }
 
-            // Телефон необязательный, но если есть — проверяем
             if (SuppPhoneTxt.Text?.Length > 0)
             {
                 string phoneClean = SuppPhoneTxt.Text.Replace(" ", "").Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
@@ -263,7 +219,6 @@ namespace JewelryStore.Pages
                 }
             }
 
-            // Email необязательный, но если есть — проверяем
             if (!string.IsNullOrWhiteSpace(SuppEmailTxt.Text) && !IsValidEmail(SuppEmailTxt.Text))
             {
                 MessageBox.Show("Введите корректный e‑mail адрес.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -336,29 +291,6 @@ namespace JewelryStore.Pages
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка добавления: " + ex.Message);
-            }
-        }
-
-        // === ОБНОВЛЕНИЕ КОНТЕКСТА БД (и списков) ===
-        private void RefreshAll_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                db.Dispose();
-                db = new JewelryStoreEntities();
-                AppConnect.model0db = db;
-
-                LoadJewelryTipList();
-                LoadMaterialList();
-                LoadStoneList();
-                LoadSupplierList();
-                LoadStatusOrderList();
-
-                MessageBox.Show("✅ Контекст обновлён! Все изменения видны в других страницах.", "Обновлено", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка обновления: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

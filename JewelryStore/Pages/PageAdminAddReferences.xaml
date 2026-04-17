@@ -24,10 +24,9 @@
                    FontSize="28" HorizontalAlignment="Center" Margin="20" 
                    FontFamily="Nirmala UI" FontWeight="Bold"/>
 
-        <TabControl Grid.Row="1" Margin="10" FontFamily="Nirmala UI" 
-                    FontWeight="Bold" x:Name="tabMain">
+        <TabControl Grid.Row="1" Margin="10" FontFamily="Nirmala UI" FontWeight="Bold">
             <!-- Типы украшений -->
-            <TabItem Header="Типы украшений" x:Name="tabJewelryTip">
+            <TabItem Header="Типы украшений">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -49,14 +48,14 @@
                             HorizontalAlignment="Right" Margin="0,10,0,0" 
                             Padding="20,8" Height="40"/>
 
-                    <!-- Список существующих типов -->
+                    <!-- Список типов украшений -->
                     <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                               Height="180" Margin="0,10,0,0" x:Name="listJewelryTip"/>
                 </Grid>
             </TabItem>
 
             <!-- Материалы -->
-            <TabItem Header="Материалы" x:Name="tabMaterial">
+            <TabItem Header="Материалы">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -91,13 +90,14 @@
             </TabItem>
 
             <!-- Камни -->
-            <TabItem Header="Камни" x:Name="tabStone">
+            <TabItem Header="Камни">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -105,39 +105,42 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Content="Название:" 
-                           VerticalAlignment="Center" FontWeight="Bold"/>
+               VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="StoneNameTxt" Grid.Row="0" Grid.Column="1" 
-                             Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
+                 Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Цвет:" 
-                           VerticalAlignment="Center" FontWeight="Bold"/>
+               VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="StoneColorTxt" Grid.Row="1" Grid.Column="1" 
-                             Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
+                 Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
 
                     <Label Grid.Row="2" Grid.Column="0" Content="Вес (г):" 
-                           VerticalAlignment="Center" FontWeight="Bold"/>
+               VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="StoneWeightTxt" Grid.Row="2" Grid.Column="1" 
-                             Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
+                 Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
 
-                    <Button Grid.Row="3" Grid.Column="1" Content="Добавить камень" 
-                            Click="AddStone_Click" 
-                            HorizontalAlignment="Right" Margin="0,10,0,0" 
-                            Padding="20,8" Height="40"/>
+                    <!-- ОДНА кнопка добавления камня -->
+                    <Button Grid.Row="3" Grid.Column="1" 
+                Content="Добавить камень" 
+                Click="AddStone_Click" 
+                HorizontalAlignment="Right" Margin="0,10,0,0" 
+                Padding="20,8" Height="40"/>
 
                     <!-- Список камней -->
                     <ListView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
-                              Height="180" Margin="0,10,0,0" x:Name="listStone"/>
+                  Height="180" Margin="0,10,0,0" x:Name="listStone"/>
                 </Grid>
             </TabItem>
 
             <!-- Поставщики -->
-            <TabItem Header="Поставщики" x:Name="tabSupplier">
+            <TabItem Header="Поставщики">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -145,33 +148,35 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Content="Название:" 
-                           VerticalAlignment="Center" FontWeight="Bold"/>
+               VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="SuppNameTxt" Grid.Row="0" Grid.Column="1" 
-                             Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
+                 Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Телефон:" 
-                           VerticalAlignment="Center" FontWeight="Bold"/>
+               VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="SuppPhoneTxt" Grid.Row="1" Grid.Column="1" 
-                             Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
+                 Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
 
                     <Label Grid.Row="2" Grid.Column="0" Content="Email:" 
-                           VerticalAlignment="Center" FontWeight="Bold"/>
+               VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="SuppEmailTxt" Grid.Row="2" Grid.Column="1" 
-                             Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
+                 Margin="10,5" Padding="5" Height="30" FontWeight="Normal"/>
 
-                    <Button Grid.Row="3" Grid.Column="1" Content="Добавить поставщика" 
-                            Click="AddSupplier_Click" 
-                            HorizontalAlignment="Right" Margin="0,10,0,0" 
-                            Padding="20,8" Height="40"/>
+                    <!-- ОДНА кнопка добавления поставщика -->
+                    <Button Grid.Row="3" Grid.Column="1" 
+                Content="Добавить поставщика" 
+                Click="AddSupplier_Click" 
+                HorizontalAlignment="Right" Margin="0,10,0,0" 
+                Padding="20,8" Height="40"/>
 
                     <!-- Список поставщиков -->
                     <ListView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
-                              Height="180" Margin="0,10,0,0" x:Name="listSupplier"/>
+                  Height="180" Margin="0,10,0,0" x:Name="listSupplier"/>
                 </Grid>
             </TabItem>
 
             <!-- Статусы заказов -->
-            <TabItem Header="Статусы заказов" x:Name="tabStatusOrder">
+            <TabItem Header="Статусы заказов">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -199,12 +204,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
-        <Button Grid.Row="2" x:Name="RefreshAllBtn" 
-                Content="Обновить контекст" Click="RefreshAll_Click" 
-                HorizontalAlignment="Center" Margin="20" Padding="20,10" 
-                Height="40" Background="White" FontFamily="Nirmala UI" 
-                FontWeight="Bold" FontSize="16"/>
-
     </Grid>
 </Page>

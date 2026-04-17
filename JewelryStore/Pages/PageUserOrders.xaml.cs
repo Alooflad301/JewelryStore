@@ -1,18 +1,9 @@
 ﻿using JewelryStore.AppData;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace JewelryStore.Pages
 {
@@ -30,6 +21,23 @@ namespace JewelryStore.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // Загружаем статусы из справочника + добавляем "Все"
+            using (var db = ShoppingCart.GetNewContext())
+            {
+                var statuses = db.StatusOrder.ToList();
+                var items = new ObservableCollection<object>
+                {
+                    new { IdStatusOrder = 0, NameStatusOrder = "Все" }
+                };
+                foreach (var status in statuses)
+                {
+                    items.Add(status);
+                }
+
+                StatusFilter.ItemsSource = items;
+                StatusFilter.SelectedIndex = 0; // по‑умолчанию — "Все"
+            }
+
             LoadOrders();
         }
 
@@ -42,9 +50,14 @@ namespace JewelryStore.Pages
                     .OrderByDescending(o => o.OrderDate)
                     .ToList();
 
-                // Применяем фильтр в памяти (C# 7.3)
-                if (selectedStatusId.HasValue)
-                    orders = orders.Where(o => o.IdStatusOrder == selectedStatusId.Value).ToList();
+                // Фильтр по выбранному статусу
+                var selected = StatusFilter.SelectedItem as dynamic;
+                var selectedId = selected?.IdStatusOrder as int?;
+
+                if (selectedId.HasValue && selectedId.Value > 0)
+                {
+                    orders = orders.Where(o => o.IdStatusOrder == selectedId.Value).ToList();
+                }
 
                 // Проекция для отображения
                 listOrders.ItemsSource = orders.Select(o => new
@@ -55,9 +68,11 @@ namespace JewelryStore.Pages
                     CustomerEmail = o.CustomerEmail ?? "",
                     DeliveryAddress = o.DeliveryAddress ?? "",
                     OrderDate = o.OrderDate,
-                    StatusName = db.StatusOrder.FirstOrDefault(s => s.IdStatusOrder == o.IdStatusOrder)?.NameStatusOrder ?? "Неизвестно",
+                    StatusName = db.StatusOrder
+                        .FirstOrDefault(s => s.IdStatusOrder == o.IdStatusOrder)?.NameStatusOrder ?? "Неизвестно",
                     TotalPrice = o.TotalPrice ?? 0,
-                    JewelryName = db.Jewelry.FirstOrDefault(j => j.IdJewelry == o.IdJewelry)?.NameJewelry ?? "Разные товары",
+                    JewelryName = db.Jewelry
+                        .FirstOrDefault(j => j.IdJewelry == o.IdJewelry)?.NameJewelry ?? "Разные товары",
                     Quantity = o.Quantity ?? 0
                 }).ToList();
 
@@ -70,8 +85,9 @@ namespace JewelryStore.Pages
             using (var db = ShoppingCart.GetNewContext())
             {
                 var totalOrders = db.Order.Count(o => o.IdUser == AppData.CurrentUser.IdUser);
-                var totalSum = db.Order.Where(o => o.IdUser == AppData.CurrentUser.IdUser)
-                                      .Sum(o => (int?)(o.TotalPrice ?? 0) ?? 0);
+                var totalSum = db.Order
+                    .Where(o => o.IdUser == AppData.CurrentUser.IdUser)
+                    .Sum(o => (int?)(o.TotalPrice ?? 0) ?? 0);
 
                 tbStats.Text = $"Заказов: {totalOrders} | На сумму: {totalSum:N0} руб.";
             }
@@ -79,36 +95,19 @@ namespace JewelryStore.Pages
 
         private void StatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StatusFilter.SelectedItem is ComboBoxItem item)
+            selectedStatusId = null;
+
+            var selected = StatusFilter.SelectedItem as dynamic;
+            if (selected != null)
             {
-                string content = item.Content.ToString();
-                switch (content)
-                {
-                    case "Все":
-                        selectedStatusId = null;
-                        break;
-                    case "Новый":
-                        selectedStatusId = 1;
-                        break;
-                    case "Подтверждён":
-                        selectedStatusId = 2;
-                        break;
-                    case "В обработке":
-                        selectedStatusId = 3;
-                        break;
-                    case "Отправлен":
-                        selectedStatusId = 4;
-                        break;
-                    case "Доставлен":
-                        selectedStatusId = 5;
-                        break;
-                    default:
-                        selectedStatusId = null;
-                        break;
-                }
-                LoadOrders();
+                int? id = selected.IdStatusOrder as int?;
+                if (id > 0)
+                    selectedStatusId = id;
             }
+
+            LoadOrders();
         }
+
         private void ViewOrder_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out int orderId))
@@ -121,7 +120,7 @@ namespace JewelryStore.Pages
         {
             if (listOrders.SelectedItem != null)
             {
-                ViewOrder_Click(null, null);  // Альтернативный способ
+                ViewOrder_Click(null, null); // 2‑й клик можно отвязать от `btn.Tag`
             }
         }
 

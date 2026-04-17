@@ -25,14 +25,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,20,20,10">
             <TextBlock Text="Мои заказы" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0" FontFamily="Nirmala UI"/>
             <ComboBox x:Name="StatusFilter" Width="200" Height="35" Margin="10" 
-                      SelectionChanged="StatusFilter_SelectionChanged" FontSize="14" FontFamily="Nirmala UI">
-                <ComboBoxItem Content="Все"/>
-                <ComboBoxItem Content="Новый"/>
-                <ComboBoxItem Content="Подтверждён"/>
-                <ComboBoxItem Content="В обработке"/>
-                <ComboBoxItem Content="Отправлен"/>
-                <ComboBoxItem Content="Доставлен"/>
-            </ComboBox>
+                      SelectionChanged="StatusFilter_SelectionChanged"
+                      DisplayMemberPath="NameStatusOrder"
+                      SelectedValuePath="IdStatusOrder"
+                      FontSize="14" FontFamily="Nirmala UI"/>
             <Button x:Name="BackCatalogButton" Content="Каталог" Width="140" Height="35" Margin="10" 
                     FontSize="16" Click="BackCatalogButton_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
         </StackPanel>
@@ -45,7 +41,7 @@
                         <Grid Margin="15">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
-                                <!-- # заказа -->
+                                <!-- № заказа -->
                                 <ColumnDefinition Width="120"/>
                                 <!-- Дата -->
                                 <ColumnDefinition Width="*"/>
