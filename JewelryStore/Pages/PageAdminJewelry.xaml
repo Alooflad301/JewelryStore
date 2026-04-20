@@ -56,7 +56,11 @@
                                     <Run Text="Категория: "/><Run Text="{Binding JewelryTip.NameJewelryTip}"/>
                                 </TextBlock>
                                 <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,20">
-                                    <Run Text="Материал: "/><Run Text="{Binding Material.NameMaterial}"/>
+<Run Text="Материал: "/>
+<Run Text="{Binding NameMaterial}"/>
+<Run Text=" ("/>
+<Run Text="{Binding Material.Proba}"/>
+<Run Text=")"/>
                                 </TextBlock>
                                 <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,10">
                                     <Run Text="Камень: "/><Run Text="{Binding Stone.NameStone}"/>

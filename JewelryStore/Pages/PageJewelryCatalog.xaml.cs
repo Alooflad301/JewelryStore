@@ -31,39 +31,52 @@ namespace JewelryStore.Pages
         }
         public void Fill()
         {
+            // Сортировка
             ComdoSort.Items.Add("Цена");
             ComdoSort.Items.Add("По возрастанию цены");
             ComdoSort.Items.Add("По убыванию цены");
             ComdoSort.SelectedIndex = 0;
-            ComboFilter.SelectedIndex = 0;
-            var category = AppConnect.model0db.JewelryTip;
+
+            // Фильтр по типу украшения
             ComboFilter.Items.Add("Тип украшения");
-            foreach (var c in category)
+
+            var jewelryTips = AppConnect.model0db.JewelryTip.ToList();
+            foreach (var tip in jewelryTips)
             {
-                ComboFilter.Items.Add(c.NameJewelryTip);
+                ComboFilter.Items.Add(tip.NameJewelryTip);
             }
-            ComdoMat.SelectedIndex = 0;
-            var categorya = AppConnect.model0db.Material;
-            ComdoMat.Items.Add("Тип Материала");
-            foreach (var a in categorya)
+
+            // Фильтр по материалу: с пробой
+            ComdoMat.Items.Add("Тип материала");
+
+            var materials = AppConnect.model0db.Material.ToList();
+            foreach (var mat in materials)
             {
-                ComdoMat.Items.Add($"{a.NameMaterial}({a.Proba})");
+                ComdoMat.Items.Add($"{mat.NameMaterial} ({mat.Proba})");
             }
-            ComdoStone.SelectedIndex = 0;
-            var categoryb = AppConnect.model0db.Stone;
-            ComdoStone.Items.Add("Тип Камня");
-            foreach (var b in categoryb)
+
+            // Фильтр по камню
+            ComdoStone.Items.Add("Тип камня");
+
+            var stones = AppConnect.model0db.Stone.ToList();
+            foreach (var stone in stones)
             {
-                ComdoStone.Items.Add(b.NameStone);
+                ComdoStone.Items.Add(stone.NameStone);
             }
-            ComdoSup.SelectedIndex = 0;
-            var categorys = AppConnect.model0db.Supplier;
+
+            // Фильтр по поставщику
             ComdoSup.Items.Add("Бренд");
-            foreach (var s in categorys)
+
+            var suppliers = AppConnect.model0db.Supplier.ToList();
+            foreach (var sup in suppliers)
             {
-                ComdoSup.Items.Add(s.NameSupplier);
+                ComdoSup.Items.Add(sup.NameSupplier);
             }
+
+            // Сброс: индексы и поиск
+            Sbros();
         }
+
         public void Sbros()
         {
             ComdoSort.SelectedIndex = 0;

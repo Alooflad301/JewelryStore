@@ -40,8 +40,22 @@
 
                 <!-- Материал -->
                 <TextBlock Text="Материал:" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI" FontSize="16"/>
-                <ComboBox x:Name="MaterialCombo" Height="30" FontSize="16" 
-                          DisplayMemberPath="NameMaterial" SelectedValuePath="IdMaterial" FontFamily="Nirmala UI"/>
+                <ComboBox x:Name="MaterialCombo"
+          Height="30"
+          FontSize="16"
+          FontFamily="Nirmala UI"
+          SelectedValuePath="IdMaterial">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NameMaterial}" FontSize="16"/>
+                                <TextBlock Text=" (" FontSize="14"/>
+                                <TextBlock Text="{Binding Proba}" FontSize="14"/>
+                                <TextBlock Text=")" FontSize="14"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <!-- Камень -->
                 <TextBlock Text="Камень:" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI" FontSize="16"/>

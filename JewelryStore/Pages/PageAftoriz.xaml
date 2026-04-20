@@ -85,7 +85,7 @@
             <!-- Кнопка "Потвердить" -->
             <Button Grid.Row="5"
                     x:Name="DaBtn"
-                    Content="Потвердить" 
+                    Content="Войти" 
                     Margin="0,10,0,10"
                     Height="40" 
                     FontFamily="Nirmala UI" 
