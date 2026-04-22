@@ -31,13 +31,10 @@ namespace JewelryStore.Pages
         }
         public void Fill()
         {
-            // Сортировка
             ComdoSort.Items.Add("Цена");
             ComdoSort.Items.Add("По возрастанию цены");
             ComdoSort.Items.Add("По убыванию цены");
             ComdoSort.SelectedIndex = 0;
-
-            // Фильтр по типу украшения
             ComboFilter.Items.Add("Тип украшения");
 
             var jewelryTips = AppConnect.model0db.JewelryTip.ToList();
@@ -46,7 +43,6 @@ namespace JewelryStore.Pages
                 ComboFilter.Items.Add(tip.NameJewelryTip);
             }
 
-            // Фильтр по материалу: с пробой
             ComdoMat.Items.Add("Тип материала");
 
             var materials = AppConnect.model0db.Material.ToList();
@@ -55,7 +51,6 @@ namespace JewelryStore.Pages
                 ComdoMat.Items.Add($"{mat.NameMaterial} ({mat.Proba})");
             }
 
-            // Фильтр по камню
             ComdoStone.Items.Add("Тип камня");
 
             var stones = AppConnect.model0db.Stone.ToList();
@@ -64,7 +59,6 @@ namespace JewelryStore.Pages
                 ComdoStone.Items.Add(stone.NameStone);
             }
 
-            // Фильтр по поставщику
             ComdoSup.Items.Add("Бренд");
 
             var suppliers = AppConnect.model0db.Supplier.ToList();
@@ -73,7 +67,6 @@ namespace JewelryStore.Pages
                 ComdoSup.Items.Add(sup.NameSupplier);
             }
 
-            // Сброс: индексы и поиск
             Sbros();
         }
 
@@ -305,7 +298,7 @@ namespace JewelryStore.Pages
             if (Window.GetWindow(this) is Window window)
             {
                 this.MinWidth = 1350;
-                this.MinHeight = 450;
+                this.MinHeight = 700;
                 CheckOrdersButtonState();
             }
         }

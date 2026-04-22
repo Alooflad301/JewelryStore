@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JewelryStore"
         mc:Ignorable="d"
-        Title="The Stones of Eden" Height="500" Width="800"
-         Background="#FF1E1E1E">
+        Title="The Stones of Eden" Height="500" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame" Navigated="MainFrame_Navigated" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" Navigated="MainFrame_Navigated" NavigationUIVisibility="Hidden" Background="#FF365A3D"/>
     </Grid>
 </Window>

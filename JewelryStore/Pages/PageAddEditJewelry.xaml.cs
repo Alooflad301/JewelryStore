@@ -10,7 +10,7 @@ namespace JewelryStore.Pages
 {
     public partial class PageAddEditJewelry : Page
     {
-        public Jewelry JewelryToEdit { get; set; } // null = добавить; not null = редактировать
+        public Jewelry JewelryToEdit { get; set; } 
 
         public PageAddEditJewelry()
         {
@@ -19,7 +19,6 @@ namespace JewelryStore.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            // Минимальный размер окна
             if (Window.GetWindow(this) is Window window)
             {
                 window.MinWidth = 800;
@@ -28,7 +27,6 @@ namespace JewelryStore.Pages
 
             LoadComboBoxes();
 
-            // Заполнение поля редактирования
             if (JewelryToEdit != null)
             {
                 NameJewelryText.Text = JewelryToEdit.NameJewelry?.Trim();
@@ -36,7 +34,7 @@ namespace JewelryStore.Pages
                 MaterialCombo.SelectedValue = JewelryToEdit.IdMaterial;
                 StoneCombo.SelectedValue = JewelryToEdit.IdStone;
                 SupplierCombo.SelectedValue = JewelryToEdit.IdSupplier;
-                PriceText.Text = JewelryToEdit.PriceJewelry?.ToString("0.00"); // decimal
+                PriceText.Text = JewelryToEdit.PriceJewelry?.ToString("0.00");
                 ImagePathText.Text = JewelryToEdit.ImagePath?.Trim();
 
                 SaveButton.Content = "✏️ Обновить";
@@ -48,12 +46,11 @@ namespace JewelryStore.Pages
             }
         }
 
-        // Загрузка комбобоксов (справочники)
         private void LoadComboBoxes()
         {
             try
             {
-                using (var db = new JewelryStoreEntities()) // Новый контекст
+                using (var db = new JewelryStoreEntities())
                 {
                     JewelryTipCombo.ItemsSource = db.JewelryTip.ToList();
                     MaterialCombo.ItemsSource = db.Material.ToList();
@@ -67,7 +64,6 @@ namespace JewelryStore.Pages
             }
         }
 
-        // Подгрузка preview изображения
         private void LoadImagePreview()
         {
             if (!string.IsNullOrWhiteSpace(ImagePathText.Text))
@@ -84,12 +80,10 @@ namespace JewelryStore.Pages
                 }
                 catch
                 {
-                    // ImagePreview.Source = null; // Если ошибка
                 }
             }
         }
 
-        // Выбор изображения
         private void SelectImageBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -105,17 +99,13 @@ namespace JewelryStore.Pages
                     string projectImagesFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Images"));
                     Directory.CreateDirectory(projectImagesFolder);
 
-                    string fileName = Path.GetFileName(openFileDialog.FileName);       // имя файла как есть
+                    string fileName = Path.GetFileName(openFileDialog.FileName);      
                     string filePathInImages = Path.Combine(projectImagesFolder, fileName);
 
-                    // Если файл уже есть в папке Images — используем его имя, не копируем
                     if (!File.Exists(filePathInImages))
                     {
-                        // Копируем файл в папку Images
                         File.Copy(openFileDialog.FileName, filePathInImages, overwrite: true);
                     }
-
-                    // Всегда устанавливаем имя файла из Image (существующее или только что скопированное)
                     ImagePathText.Text = fileName;
                     ImagePreview.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(filePathInImages));
 
@@ -127,11 +117,8 @@ namespace JewelryStore.Pages
                 }
             }
         }
-
-        // Сохранение/Обновление товара
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Валидация полей — как у тебя уже есть
             if (string.IsNullOrWhiteSpace(NameJewelryText.Text))
             {
                 MessageBox.Show("Введите название товара.");
@@ -146,20 +133,17 @@ namespace JewelryStore.Pages
 
             try
             {
-                // Создаём свежий контекст, чтобы не было конфликтов с глобальным
                 using (var db = new JewelryStoreEntities())
                 {
                     Jewelry jewelry;
 
                     if (JewelryToEdit == null)
                     {
-                        // Новый товар
                         jewelry = new Jewelry();
                         db.Jewelry.Add(jewelry);
                     }
                     else
                     {
-                        // Редактирование: загружаем объект по Id (чистый контекст!)
                         int id = JewelryToEdit.IdJewelry;
                         jewelry = db.Jewelry.FirstOrDefault(x => x.IdJewelry == id);
 
@@ -170,7 +154,6 @@ namespace JewelryStore.Pages
                         }
                     }
 
-                    // Обновляем поля
                     jewelry.NameJewelry = NameJewelryText.Text.Trim();
                     jewelry.IdJewelryTip = (int)JewelryTipCombo.SelectedValue;
                     jewelry.IdMaterial = (int)MaterialCombo.SelectedValue;
@@ -183,7 +166,6 @@ namespace JewelryStore.Pages
 
                     db.SaveChanges();
 
-                    // Обновляем глобальный контекст, если хочешь видеть изменения сразу
                     AppData.AppConnect.model0db.Entry(JewelryToEdit).CurrentValues.SetValues(jewelry);
 
                     MessageBox.Show(JewelryToEdit == null ? "🛒 Товар добавлен!" : "✅ Товар обновлён!");
@@ -197,7 +179,6 @@ namespace JewelryStore.Pages
             AppFrame.framemain.Navigate(new PageAdminPanel());
         }
 
-        // Отмена (назад к панели)
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.Navigate(new PageAdminPanel());

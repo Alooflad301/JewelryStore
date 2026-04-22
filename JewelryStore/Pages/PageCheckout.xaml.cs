@@ -9,11 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using QRCoder;
 using System.Drawing;
-using System.IO;
 using System.Diagnostics;
 
 namespace JewelryStore.Pages
@@ -41,13 +37,11 @@ namespace JewelryStore.Pages
                     var user = db.User.FirstOrDefault(u => u.IdUser == AppData.CurrentUser.IdUser);
                     if (user != null)
                     {
-                        CustomerNameText.Text = user.Login;  // Или добавьте FullName в БД
                         PhoneText.Text = user.Phone ?? "";
                         EmailText.Text = user.Email ?? "";
                     }
                 }
             }
-
             LoadCart();
         }
 
@@ -60,7 +54,6 @@ namespace JewelryStore.Pages
 
         private void ConfirmOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            // Валидация
             if (string.IsNullOrWhiteSpace(CustomerNameText.Text) ||
                 string.IsNullOrWhiteSpace(PhoneText.Text) ||
                 string.IsNullOrWhiteSpace(EmailText.Text) ||
@@ -82,8 +75,6 @@ namespace JewelryStore.Pages
                 EmailText.Focus();
                 return;
             }
-
-            // Проверка, что в корзине есть товары
             var cartItems = ShoppingCart.GetItems();
             if (cartItems.Count == 0)
             {
@@ -95,22 +86,20 @@ namespace JewelryStore.Pages
 
             using (var db = ShoppingCart.GetNewContext())
             {
-                // Создаём заказ (поля из БД)
                 var order = new Order
                 {
                     IdUser = AppData.CurrentUser.IdUser,
                     CustomerName = CustomerNameText.Text,
-                    CustomerPhone = PhoneText.Text,      // ← CustomerPhone!
-                    CustomerEmail = EmailText.Text,      // ← CustomerEmail!
+                    CustomerPhone = PhoneText.Text,      
+                    CustomerEmail = EmailText.Text,    
                     DeliveryAddress = AddressText.Text,
                     OrderDate = DateTime.Now,
-                    IdStatusOrder = 1,  // "Новый"
-                    TotalPrice = (int)ShoppingCart.GetTotalPrice()  // int из БД
+                    IdStatusOrder = 1,  
+                    TotalPrice = (int)ShoppingCart.GetTotalPrice()  
                 };
                 db.Order.Add(order);
                 db.SaveChanges();
 
-                // Копируем товары из корзины → OrderItem
                 foreach (var cartItem in cartItems)
                 {
                     db.OrderItem.Add(new OrderItem
@@ -118,7 +107,7 @@ namespace JewelryStore.Pages
                         IdOrder = order.IdOrder,
                         IdJewelry = cartItem.IdJewelry.Value,
                         Quantity = cartItem.Quantity,
-                        UnitPrice = (int)(cartItem.Jewelry.PriceJewelry ?? 0),  // int!
+                        UnitPrice = (int)(cartItem.Jewelry.PriceJewelry ?? 0),
                         TotalPrice = (int)(cartItem.Quantity * (cartItem.Jewelry.PriceJewelry ?? 0))
                     });
                 }
@@ -145,7 +134,6 @@ namespace JewelryStore.Pages
             return !string.IsNullOrEmpty(phone) && phone.Length >= 10 && phone.Length <= 15 && phone.All(char.IsDigit);
         }
 
-        // Простая валидация email
         private bool ValidateEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return false;
@@ -165,7 +153,6 @@ namespace JewelryStore.Pages
                 Directory.CreateDirectory(ordersFolder);
                 string pdfPath = Path.Combine(ordersFolder, $"чек_заказ_{orderId}.pdf");
 
-                // Загружаем товары заказа из БД
                 using (var db = ShoppingCart.GetNewContext())
                 {
                     var orderItems = db.OrderItem
@@ -179,17 +166,15 @@ namespace JewelryStore.Pages
                         })
                         .ToList();
 
-                    // QR код (маленький)
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
                     QRCodeData qrCodeData = qrGenerator.CreateQrCode(
                         $"Заказ #{orderId}\\n{customerName}\\n{phone}\\n{totalPrice:N0} руб.",
                         QRCodeGenerator.ECCLevel.M);
 
                     PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
-                    byte[] qrCodeImageBytes = qrCode.GetGraphic(10); // Меньший размер!
+                    byte[] qrCodeImageBytes = qrCode.GetGraphic(10);
 
-                    // Русский шрифт
-                    string fontPath = @"C:\Windows\Fonts\arial.ttf"; // Arial с кириллицей
+                    string fontPath = @"C:\Windows\Fonts\arial.ttf"; 
                     BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
                     Document document = new Document(PageSize.A4, 40, 40, 60, 60);
@@ -201,7 +186,6 @@ namespace JewelryStore.Pages
                     iTextSharp.text.Font normalFont = new iTextSharp.text.Font(baseFont, 13);
                     iTextSharp.text.Font totalFont = new iTextSharp.text.Font(baseFont, 20, Font.BOLD);
 
-                    // Заголовок
                     Paragraph title = new Paragraph("ЮВЕЛИРНЫЙ МАГАЗИН", titleFont)
                     {
                         Alignment = Element.ALIGN_CENTER,
@@ -223,25 +207,18 @@ namespace JewelryStore.Pages
                         SpacingAfter = 10
                     };
                     document.Add(orderTitle);
-
-                    // Данные клиента
                     document.Add(new Paragraph($"Клиент: {customerName}", normalFont) { SpacingAfter = 5 });
                     document.Add(new Paragraph($"Телефон: {phone}", normalFont) { SpacingAfter = 5 });
                     document.Add(new Paragraph($"Дата: {DateTime.Now:dd.MM.yyyy HH:mm}", normalFont) { SpacingAfter = 20 });
 
-                    // Заголовок таблицы товаров
                     Paragraph tableHeader = new Paragraph("Товары в заказе", headerFont)
                     {
                         SpacingAfter = 10
                     };
                     document.Add(tableHeader);
-
-                    // Таблица: Наименование | Количество | Цена за шт. | Сумма
                     PdfPTable table = new PdfPTable(4);
                     table.WidthPercentage = 100;
                     table.SetWidths(new float[] { 3f, 1f, 1f, 1f });
-
-                    // Заголовки столбцов
                     table.AddCell(new PdfPCell(new Phrase("Товар(ы)", normalFont)));
                     table.AddCell(new PdfPCell(new Phrase("Кол‑во", normalFont)));
                     table.AddCell(new PdfPCell(new Phrase("Цена", normalFont)));
@@ -257,7 +234,6 @@ namespace JewelryStore.Pages
 
                     document.Add(table);
 
-                    // Итоговая сумма заказа
                     Paragraph total = new Paragraph($"ИТОГО: {totalPrice:N0} ₽", totalFont)
                     {
                         Alignment = Element.ALIGN_RIGHT,
@@ -266,13 +242,11 @@ namespace JewelryStore.Pages
                     };
                     document.Add(total);
 
-                    // QR код
                     iTextSharp.text.Image qrImage = iTextSharp.text.Image.GetInstance(qrCodeImageBytes);
                     qrImage.ScaleAbsolute(120f, 120f);
                     qrImage.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                     document.Add(qrImage);
 
-                    // Подвал
                     iTextSharp.text.Font footerFont = new iTextSharp.text.Font(baseFont, 12, Font.ITALIC);
                     Paragraph footer = new Paragraph("Спасибо за покупку!\nСканируйте QR‑код для проверки заказа", footerFont)
                     {
@@ -282,7 +256,6 @@ namespace JewelryStore.Pages
 
                     document.Close();
 
-                    // Автооткрытие PDF
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(pdfPath)
                     {
                         UseShellExecute = true

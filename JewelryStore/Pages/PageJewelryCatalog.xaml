@@ -5,14 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JewelryStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1350"
+      d:DesignHeight="700" d:DesignWidth="1350"
       Title="PageJewelryCatalog" Loaded="Jc">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">

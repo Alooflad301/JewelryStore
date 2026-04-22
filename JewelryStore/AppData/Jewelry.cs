@@ -30,21 +30,7 @@ namespace JewelryStore.AppData
         public Nullable<int> IdSupplier { get; set; }
         public Nullable<decimal> PriceJewelry { get; set; }
         public string ImagePath { get; set; }
-        public string CurrentPhoto
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(ImagePath) || String.IsNullOrWhiteSpace(ImagePath))
-                {
-                    return @"/Images/Zagluhca.jpeg";
-                }
-                else
-                {
-                    return @"/Images/" + ImagePath;
-                }
-            }
-        }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItem { get; set; }
         public virtual JewelryTip JewelryTip { get; set; }
