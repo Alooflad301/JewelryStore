@@ -21,7 +21,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок + фильтр -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,20,20,10">
             <TextBlock Text="Мои заказы" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0" FontFamily="Nirmala UI"/>
             <ComboBox x:Name="StatusFilter" Width="200" Height="35" Margin="10" 
@@ -33,7 +32,6 @@
                     FontSize="16" Click="BackCatalogButton_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
         </StackPanel>
 
-        <!-- ListView заказов (горизонтальное) -->
         <ListView Grid.Row="1" x:Name="listOrders" Margin="20,10" SelectionChanged="listOrders_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -41,22 +39,14 @@
                         <Grid Margin="15">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
-                                <!-- № заказа -->
                                 <ColumnDefinition Width="120"/>
-                                <!-- Дата -->
                                 <ColumnDefinition Width="*"/>
-                                <!-- Статус -->
                                 <ColumnDefinition Width="*"/>
-                                <!-- Клиент -->
                                 <ColumnDefinition Width="*"/>
-                                <!-- Адрес -->
                                 <ColumnDefinition Width="*"/>
-                                <!-- Итог -->
                                 <ColumnDefinition Width="*"/>
-                                <!-- Кнопка -->
                             </Grid.ColumnDefinitions>
-
-                            <!-- Номер заказа -->
+                            
                             <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding IdOrder}" FontSize="20" FontWeight="Bold" 
                                            HorizontalAlignment="Center" Foreground="#FF421A56"/>
@@ -64,33 +54,27 @@
                                            HorizontalAlignment="Center"/>
                             </StackPanel>
 
-                            <!-- Дата -->
                             <TextBlock Grid.Column="1" Text="{Binding OrderDate, StringFormat='HH:mm'}" 
                                        FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
 
-                            <!-- Статус -->
                             <TextBlock Grid.Column="2" Text="{Binding StatusName}" FontSize="14" FontWeight="Bold" 
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                            <!-- Клиент -->
                             <StackPanel Grid.Column="3" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding CustomerName}" FontSize="14" FontWeight="SemiBold"/>
                                 <TextBlock Text="{Binding CustomerPhone}" FontSize="12"/>
                                 <TextBlock Text="{Binding CustomerEmail}" FontSize="11" Foreground="Blue"/>
                             </StackPanel>
 
-                            <!-- Адрес -->
                             <TextBlock Grid.Column="4" Text="{Binding DeliveryAddress}" FontSize="13" 
                                        VerticalAlignment="Center" TextWrapping="NoWrap"/>
 
-                            <!-- Итог -->
                             <TextBlock Grid.Column="5" 
                                        Text="{Binding TotalPrice, StringFormat='Итого: {0:N0} руб.'}" 
                                        FontSize="16" FontWeight="Bold" 
                                        VerticalAlignment="Center" HorizontalAlignment="Center" 
                                        Foreground="#2E7D32" Margin="5,0,0,0"/>
 
-                            <!-- Кнопка "Смотреть" -->
                             <Button Grid.Column="6" Content="👁️" Width="40" Height="40" 
                                     VerticalAlignment="Center" Click="ViewOrder_Click" 
                                     Tag="{Binding IdOrder}" Background="Transparent" BorderThickness="0"/>
@@ -100,7 +84,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Статистика -->
         <Border Grid.Row="2" Height="60" Margin="20,0">
             <TextBlock x:Name="tbStats" Text="Заказов: 0 | На сумму: 0 руб." 
                        FontSize="20" FontWeight="Bold" 

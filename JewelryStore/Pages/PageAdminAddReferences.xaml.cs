@@ -17,7 +17,6 @@ namespace JewelryStore.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            // Проверка прав админа
             if (!AppData.CurrentUser.IsAdmin)
             {
                 MessageBox.Show("Доступ только для админов!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -32,39 +31,31 @@ namespace JewelryStore.Pages
             LoadStatusOrderList();
         }
 
-        // === ЗАГРУЗКА СПИСКОВ ===
-
         private void LoadJewelryTipList()
         {
             listJewelryTip.ItemsSource = db.JewelryTip.ToList();
-            listJewelryTip.DisplayMemberPath = "NameJewelryTip";
         }
 
         private void LoadMaterialList()
         {
             listMaterial.ItemsSource = db.Material.ToList();
-            listMaterial.DisplayMemberPath = "NameMaterial";
         }
 
         private void LoadStoneList()
         {
             listStone.ItemsSource = db.Stone.ToList();
-            listStone.DisplayMemberPath = "NameStone";
         }
 
         private void LoadSupplierList()
         {
             listSupplier.ItemsSource = db.Supplier.ToList();
-            listSupplier.DisplayMemberPath = "NameSupplier";
         }
 
         private void LoadStatusOrderList()
         {
             listStatusOrder.ItemsSource = db.StatusOrder.ToList();
-            listStatusOrder.DisplayMemberPath = "NameStatusOrder";
         }
 
-        // === ДОБАВЛЕНИЕ ТИПОВ УКРАШЕНИЙ ===
         private void AddJewelryTip_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TipNameTxt.Text))
@@ -102,7 +93,6 @@ namespace JewelryStore.Pages
             }
         }
 
-        // === ДОБАВЛЕНИЕ МАТЕРИАЛОВ ===
         private void AddMaterial_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(MatNameTxt.Text))
@@ -149,7 +139,6 @@ namespace JewelryStore.Pages
             }
         }
 
-        // === ДОБАВЛЕНИЕ КАМНЕЙ ===
         private void AddStone_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(StoneNameTxt.Text))
@@ -198,7 +187,6 @@ namespace JewelryStore.Pages
             }
         }
 
-        // === ДОБАВЛЕНИЕ ПОСТАВЩИКОВ ===
         private void AddSupplier_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(SuppNameTxt.Text))
@@ -256,8 +244,6 @@ namespace JewelryStore.Pages
                 MessageBox.Show("Ошибка добавления: " + ex.Message);
             }
         }
-
-        // === ДОБАВЛЕНИЕ СТАТУСОВ ЗАКАЗОВ ===
         private void AddStatusOrder_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(StatusNameTxt.Text))
@@ -294,7 +280,6 @@ namespace JewelryStore.Pages
             }
         }
 
-        // Валидация email
         private bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return false;
@@ -305,5 +290,6 @@ namespace JewelryStore.Pages
             }
             catch { return false; }
         }
+
     }
 }

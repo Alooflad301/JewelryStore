@@ -21,7 +21,6 @@ namespace JewelryStore.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            // Загружаем статусы из справочника + добавляем "Все"
             using (var db = ShoppingCart.GetNewContext())
             {
                 var statuses = db.StatusOrder.ToList();
@@ -35,7 +34,7 @@ namespace JewelryStore.Pages
                 }
 
                 StatusFilter.ItemsSource = items;
-                StatusFilter.SelectedIndex = 0; // по‑умолчанию — "Все"
+                StatusFilter.SelectedIndex = 0;
             }
 
             LoadOrders();
@@ -50,7 +49,6 @@ namespace JewelryStore.Pages
                     .OrderByDescending(o => o.OrderDate)
                     .ToList();
 
-                // Фильтр по выбранному статусу
                 var selected = StatusFilter.SelectedItem as dynamic;
                 var selectedId = selected?.IdStatusOrder as int?;
 
@@ -59,7 +57,6 @@ namespace JewelryStore.Pages
                     orders = orders.Where(o => o.IdStatusOrder == selectedId.Value).ToList();
                 }
 
-                // Проекция для отображения
                 listOrders.ItemsSource = orders.Select(o => new
                 {
                     IdOrder = o.IdOrder,
@@ -120,7 +117,7 @@ namespace JewelryStore.Pages
         {
             if (listOrders.SelectedItem != null)
             {
-                ViewOrder_Click(null, null); // 2‑й клик можно отвязать от `btn.Tag`
+                ViewOrder_Click(null, null);
             }
         }
 

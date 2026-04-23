@@ -22,11 +22,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <TextBlock Grid.Row="0" Text="Оформление заказа" FontSize="32" FontWeight="Bold" 
                    HorizontalAlignment="Center" Margin="10" Foreground="Black" FontFamily="Nirmala UI"/>
 
-        <!-- Корзина (Run без ошибок!) -->
         <Grid Grid.Row="1" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -37,17 +35,15 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <!-- Название -->
+
                             <TextBlock Text="{Binding Jewelry.NameJewelry}" Width="280" FontWeight="SemiBold" 
                                        VerticalAlignment="Center" FontSize="16"/>
 
-                            <!-- Количество (Run) -->
                             <TextBlock Width="70" VerticalAlignment="Center" FontSize="16">
                                 <Run Text="{Binding Quantity}"/>
                                 <Run Text=" шт."/>
                             </TextBlock>
 
-                            <!-- Цена за шт (Run) -->
                             <TextBlock Width="Auto" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16">
                                 <Run Text="{Binding Jewelry.PriceJewelry}"/>
                                 <Run Text=" руб/шт"/>
@@ -78,7 +74,6 @@
             </StackPanel>
         </GroupBox>
 
-        <!-- Кнопки -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="ConfirmOrderButton" Content="Оформить заказ" 
                     Width="200" Height="50" FontSize="18" FontWeight="Bold"

@@ -78,10 +78,8 @@ namespace JewelryStore.Pages
 
                 try
                 {
-                    // Создаём новый контекст (без лишних привязок)
                     using (var db = new JewelryStoreEntities())
                     {
-                        // Проверка на связанные заказы (OrderItem)
                         bool hasOrders = db.OrderItem.Any(o => o.IdJewelry == selectedJewelry.IdJewelry);
                         if (hasOrders)
                         {
@@ -90,7 +88,6 @@ namespace JewelryStore.Pages
                             return;
                         }
 
-                        // Перезагружаем объект из БД в чистом контексте
                         var jewelryToDelete = db.Jewelry.Find(selectedJewelry.IdJewelry);
                         if (jewelryToDelete == null)
                         {
@@ -102,7 +99,6 @@ namespace JewelryStore.Pages
                         db.Jewelry.Remove(jewelryToDelete);
                         db.SaveChanges();
 
-                        // Обновляем список в UI
                         MessageBox.Show("✅ Товар удален!");
                     }
 

@@ -39,7 +39,7 @@ namespace JewelryStore.Pages
             {
                 db.SaveChanges();
                 MessageBox.Show("Статусы заказов обновлены!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadData(); // Перезагружаем для актуального отображения
+                LoadData(); 
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace JewelryStore.Pages
 
         private void OrdersGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            SaveBtn.IsEnabled = true; // Активируем кнопку после редактирования
+            SaveBtn.IsEnabled = true; 
         }
     }
 }

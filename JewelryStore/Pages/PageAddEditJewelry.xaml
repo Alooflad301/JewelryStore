@@ -21,24 +21,19 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <TextBlock Grid.Row="0" Text="Добавить/Редактировать товар" 
                    FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" 
                    Margin="20" Foreground="Black" FontFamily="Nirmala UI"/>
 
-        <!-- Форма -->
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
-                <!-- Название -->
                 <TextBlock Text="Название украшения:" FontWeight="Bold" Margin="0,10,0,5" FontSize="16" FontFamily="Nirmala UI"/>
                 <TextBox x:Name="NameJewelryText" Height="30" FontSize="16" FontFamily="Nirmala UI"/>
 
-                <!-- Тип -->
                 <TextBlock Text="Тип украшения:" FontWeight="Bold" Margin="0,10,0,5" FontSize="16" FontFamily="Nirmala UI"/>
                 <ComboBox x:Name="JewelryTipCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameJewelryTip" SelectedValuePath="IdJewelryTip" FontFamily="Nirmala UI"/>
 
-                <!-- Материал -->
                 <TextBlock Text="Материал:" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI" FontSize="16"/>
                 <ComboBox x:Name="MaterialCombo"
           Height="30"
@@ -57,21 +52,17 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <!-- Камень -->
                 <TextBlock Text="Камень:" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI" FontSize="16"/>
                 <ComboBox x:Name="StoneCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameStone" SelectedValuePath="IdStone" FontFamily="Nirmala UI"/>
 
-                <!-- Поставщик -->
                 <TextBlock Text="Поставщик:" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI" FontSize="16"/>
                 <ComboBox x:Name="SupplierCombo" Height="30" FontSize="16" 
                           DisplayMemberPath="NameSupplier" SelectedValuePath="IdSupplier" FontFamily="Nirmala UI"/>
 
-                <!-- Цена -->
                 <TextBlock Text="Цена (руб.):" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI" FontSize="16"/>
                 <TextBox x:Name="PriceText" Height="30" FontSize="16"/>
 
-                <!-- Изображение -->
                 <TextBlock Text="Изображение:" FontWeight="Bold" Margin="0,10,0,5" FontSize="16" FontFamily="Nirmala UI"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
@@ -86,7 +77,6 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Кнопки -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
             <Button x:Name="SaveButton" Content="Сохранить" Width="120" Height="40" 
                     FontSize="18" Margin="10" Click="SaveButton_Click" Background="White" FontFamily="Nirmala UI" FontWeight="Bold"/>

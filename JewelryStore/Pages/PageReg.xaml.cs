@@ -68,7 +68,6 @@ namespace JewelryStore.Pages
                 return;
             }
 
-            // Проверка длины логина и пароля (пример)
             if (LoginBox.Text.Length < 3)
             {
                 MessageBox.Show("Логин должен содержать не менее 3 символов.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -83,7 +82,6 @@ namespace JewelryStore.Pages
                 return;
             }
 
-            // Проверка существования логина в БД
             if (AppConnect.model0db.User.Any(x => x.Login == LoginBox.Text.Trim()))
             {
                 MessageBox.Show("Пользователь с таким логином уже существует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -158,14 +156,12 @@ namespace JewelryStore.Pages
         }
         private bool ValidatePhone(string phone)
         {
-            // Пример очень простой валидации: начинается с +7 или 8 и содержит только цифры/допустимые символы
             phone = phone?.Replace(" ", "").Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "").Trim();
             return !string.IsNullOrEmpty(phone) && phone.Length >= 10 && phone.Length <= 15 && phone.All(char.IsDigit);
         }
 
         private bool ValidateEmail(string email)
         {
-            // Простая проверка: содержит @ и домен
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
