@@ -11,27 +11,97 @@
     <Grid Loaded="Aftor_Loaded">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF8DCEEA"/>
-                <GradientStop Color="#FFA2ABDC" Offset="1"/>
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid VerticalAlignment="Center">
-            <Label Content="Авторизация" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Nirmala UI" FontSize="48" Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
-            <Label Content="Логин" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,132,0,0" VerticalAlignment="Top" FontFamily="Nirmala UI" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
-            <Label Content="Пароль" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,209,0,0" VerticalAlignment="Top" FontFamily="Nirmala UI" FontSize="24"  Foreground="#FFFF1D1D" FontWeight="Bold" FontStyle="Italic"/>
-            <Button x:Name="DaBtn" Content="Потвердить" HorizontalAlignment="Stretch" Margin="0,292,0,0" VerticalAlignment="Top" Height="31" Width="344" FontFamily="Nirmala UI" Foreground="#FFFF0505"  Click="DaBtn_Click" Background="White" FontWeight="Bold"/>
-            <Button x:Name="Regtodt" Content="Регистрация" HorizontalAlignment="Stretch" Margin="0,328,0,0" VerticalAlignment="Top" Height="31" Width="344" FontFamily="Nirmala UI" Foreground="#FFFF0505"  Click="Regtodt_Click" Background="White" FontWeight="Bold">
-                <UIElement.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </UIElement.RenderTransform>
-            </Button>
-            <TextBox x:Name="TextLogin" HorizontalAlignment="Stretch" Margin="0,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="25" FontFamily="Nirmala UI" />
-            <PasswordBox x:Name="PassBox" Margin="226,255,226,0" VerticalAlignment="Top" Width="348" Height="25" FontFamily="Nirmala UI"/>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" 
+              Margin="30" Width="Auto" MinWidth="290" MaxWidth="400">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" 
+                       Text="Авторизация" 
+                       FontFamily="Nirmala UI" 
+                       FontWeight="Bold" 
+                       FontSize="48" 
+                       Foreground="Black" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,10"/>
+
+            <TextBlock Grid.Row="1" 
+                       Text="Логин" 
+                       FontFamily="Nirmala UI" 
+                       FontWeight="Bold" 
+                       FontSize="24" 
+                       Foreground="Black" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,10,0,5"/>
+
+            <TextBox Grid.Row="2"
+                     x:Name="TextLogin"
+                     VerticalContentAlignment="Center" 
+                     Margin="0,0,0,10"
+                     Background="White" 
+                     TextWrapping="Wrap" 
+                     VerticalAlignment="Top" 
+                     FontFamily="Nirmala UI" 
+                     FontSize="14"
+                     Width="Auto"/>
+
+            <TextBlock Grid.Row="3" 
+                       Text="Пароль" 
+                       FontFamily="Nirmala UI" 
+                       FontWeight="Bold" 
+                       FontSize="24" 
+                       Foreground="Black" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,10,0,5"/>
+
+            <PasswordBox Grid.Row="4"
+                         x:Name="PassBox"
+                         VerticalContentAlignment="Center" 
+                         Margin="0,0,0,10"
+                         Background="White" 
+                         VerticalAlignment="Top" 
+                         FontFamily="Nirmala UI" 
+                         FontSize="14"
+                         Width="Auto"/>
+
+            <Button Grid.Row="5"
+                    x:Name="DaBtn"
+                    Content="Войти" 
+                    Margin="0,10,0,10"
+                    Height="40" 
+                    FontFamily="Nirmala UI" 
+                    FontSize="18" 
+                    Foreground="Black"  
+                    Background="White" 
+                    FontWeight="Bold"
+                    Click="DaBtn_Click"/>
+
+            <Button Grid.Row="6"
+                    x:Name="Regtodt"
+                    Content="Регистрация" 
+                    Margin="0,10,0,0"
+                    Height="40" 
+                    FontFamily="Nirmala UI" 
+                    FontSize="18" 
+                    Foreground="Black"  
+                    Background="White" 
+                    FontWeight="Bold"
+                    Click="Regtodt_Click"/>
+
         </Grid>
     </Grid>
 </Page>

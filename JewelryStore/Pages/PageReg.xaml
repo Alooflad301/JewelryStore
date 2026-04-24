@@ -8,21 +8,32 @@
       d:DesignHeight="500" d:DesignWidth="800"
       Title="PageReg">
 
-    <Grid Background="White" Loaded="PageReg_Loaded">
-        <Grid VerticalAlignment="Center">
-            <Label Content="Регистрация" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="36"/>
-            <Label Content="Логин" Margin="0,58,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-            <Label Content="Пароль" Margin="0,115,0,0" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-            <Label Content="Потвердите пароль" Margin="0,173,0,0" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-            <Label Content="Телефон" Margin="0,229,0,0" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-            <Label Content="Почта" Margin="0,284,0,0" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-            <Button x:Name="RegBut" Content="Зарегестрироватся" HorizontalAlignment="Center" Margin="0,359,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16" Width="254" Click="RegBut_Click"/>
-            <Button x:Name="HomeBut" Content="Назад" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16" Width="254" Click="HomeBut_Click"/>
-            <PasswordBox x:Name="Password1" HorizontalAlignment="Center" Margin="0,155,0,0" VerticalAlignment="Top" Width="254" FontFamily="Comic Sans MS" FontSize="14"/>
-            <PasswordBox x:Name="Password2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="254" FontFamily="Comic Sans MS" FontSize="14" PasswordChanged="Password2_PasswordChanged" Margin="0,210,0,0"/>
-            <TextBox x:Name="LoginBox" HorizontalAlignment="Center" Margin="0,97,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="254" FontFamily="Comic Sans MS" FontSize="14"/>
-            <TextBox x:Name="TelevonBox"  HorizontalAlignment="Center" Margin="0,267,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="254" FontFamily="Comic Sans MS" FontSize="14"/>
-            <TextBox x:Name="EmailBox" HorizontalAlignment="Center" Margin="0,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254" FontFamily="Comic Sans MS" FontSize="14"/>
-        </Grid>
+    <Grid Loaded="PageReg_Loaded">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Регистрация" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Nirmala UI" FontSize="36" Foreground="Black" FontWeight="Bold"/>
+            <Label Content="Логин" Margin="5" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Nirmala UI" Foreground="Black" FontSize="18" FontWeight="Bold"/>
+            <TextBox x:Name="LoginBox" VerticalContentAlignment="Center" HorizontalAlignment="Center"  TextWrapping="Wrap"  VerticalAlignment="Top" Width="254" FontFamily="Nirmala UI" FontSize="14"/>
+            <Label Content="Пароль" Margin="5" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Nirmala UI"  Foreground="Black" FontSize="18" FontWeight="Bold"/>
+            <PasswordBox x:Name="Password1" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="254" FontFamily="Nirmala UI" FontSize="14"/>
+            <Label Content="Потвердите пароль" Margin="5" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Nirmala UI"  Foreground="Black" FontSize="18" FontWeight="Bold"/>
+            <PasswordBox x:Name="Password2" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="254" FontFamily="Nirmala UI" FontSize="14" PasswordChanged="Password2_PasswordChanged"/>
+            <Label Content="Телефон" Margin="5" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Nirmala UI" FontSize="18"  Foreground="Black" FontWeight="Bold"/>
+            <TextBox x:Name="TelevonBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Width="254" FontFamily="Nirmala UI" FontSize="14"/>
+            <Label Content="Почта" Margin="5" VerticalAlignment="Top"  HorizontalContentAlignment="Center" FontFamily="Nirmala UI" FontSize="18"  Foreground="Black" FontWeight="Bold"/>
+             <TextBox x:Name="EmailBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="254" FontFamily="Nirmala UI" FontSize="14"/>
+            <Button x:Name="RegBut" Content="Зарегестрироватся" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontFamily="Nirmala UI" FontSize="18" Width="254" Click="RegBut_Click" FontWeight="Bold" Background="White"/>
+            <Button x:Name="HomeBut" Content="Назад" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" FontFamily="Nirmala UI" FontSize="18" Width="254" Click="HomeBut_Click" FontWeight="Bold" Background="White"/>
+           
+            
+            
+            
+           
+        </StackPanel>
     </Grid>
 </Page>

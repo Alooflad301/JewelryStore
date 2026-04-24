@@ -53,7 +53,7 @@
           <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerEmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="500" />
           <Property Name="IdStatusOrder" Type="int" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="Quantity" Type="int" />
@@ -472,7 +472,7 @@
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IdStatusOrder" Type="Int32" />
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <Property Name="Quantity" Type="Int32" />

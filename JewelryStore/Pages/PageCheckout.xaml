@@ -5,44 +5,46 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JewelryStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1000" d:MinHeight="700"
+      d:DesignHeight="750" d:DesignWidth="900"
       Title="PageCheckout" Loaded="Page_Loaded">
 
-    <Grid Margin="20" Background="#FFEFA068">
+    <Grid Margin="20">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <TextBlock Grid.Row="0" Text="Оформление заказа" FontSize="32" FontWeight="Bold" 
-                   HorizontalAlignment="Center" Margin="10" Foreground="#FF421A56"/>
+                   HorizontalAlignment="Center" Margin="10" Foreground="Black" FontFamily="Nirmala UI"/>
 
-        <!-- Корзина (Run без ошибок!) -->
         <Grid Grid.Row="1" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Column="0" x:Name="listCartPreview" Height="80">
+            <ListView Grid.Column="0" x:Name="listCartPreview" Height="150" FontFamily="Nirmala UI">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="5" Background="LightGray">
-                            <!-- Название -->
-                            <TextBlock Text="{Binding Jewelry.NameJewelry}" Width="280" FontWeight="SemiBold" 
-                                       VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Margin="5">
 
-                            <!-- Количество (Run) -->
-                            <TextBlock Width="70" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Jewelry.NameJewelry}" Width="280" FontWeight="SemiBold" 
+                                       VerticalAlignment="Center" FontSize="16"/>
+
+                            <TextBlock Width="70" VerticalAlignment="Center" FontSize="16">
                                 <Run Text="{Binding Quantity}"/>
                                 <Run Text=" шт."/>
                             </TextBlock>
 
-                            <!-- Цена за шт (Run) -->
-                            <TextBlock Width="110" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBlock Width="Auto" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16">
                                 <Run Text="{Binding Jewelry.PriceJewelry}"/>
                                 <Run Text=" руб/шт"/>
                             </TextBlock>
@@ -53,35 +55,34 @@
 
             <TextBlock Grid.Column="1" x:Name="tbTotalPreview" 
                        Text="Итого: 0 руб." FontSize="24" FontWeight="Bold" 
-                       VerticalAlignment="Center" Margin="10"/>
+                       VerticalAlignment="Center" Margin="10" FontFamily="Nirmala UI"/>
         </Grid>
 
-        <GroupBox Grid.Row="2" Header="📍 Данные для доставки" Margin="0,0,0,20">
+        <GroupBox Grid.Row="2" Header="📍 Данные для доставки" Margin="0,0,0,20" BorderBrush="Black" FontFamily="Nirmala UI" FontSize="16">
             <StackPanel Margin="10">
-                <TextBlock Text="ФИО:*" FontWeight="Bold"/>
-                <TextBox x:Name="CustomerNameText"/>
+                <TextBlock Text="ФИО:*" FontWeight="Bold" FontFamily="Nirmala UI"/>
+                <TextBox x:Name="CustomerNameText" FontSize="16" FontFamily="Nirmala UI"/>
 
-                <TextBlock Text="Телефон:*" FontWeight="Bold" Margin="0,10,0,5"/>
-                <TextBox x:Name="PhoneText"/>
+                <TextBlock Text="Телефон:*" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Nirmala UI"/>
+                <TextBox x:Name="PhoneText" FontSize="16" FontFamily="Nirmala UI"/>
 
                 <TextBlock Text="Email:*" FontWeight="Bold" Margin="0,10,0,5"/>
-                <TextBox x:Name="EmailText"/>
+                <TextBox x:Name="EmailText" FontSize="16" FontFamily="Nirmala UI"/>
 
                 <TextBlock Text="Адрес доставки:*" FontWeight="Bold" Margin="0,10,0,5"/>
-                <TextBox x:Name="AddressText" Height="60" AcceptsReturn="True"/>
+                <TextBox x:Name="AddressText" Height="60" AcceptsReturn="True" FontSize="16" FontFamily="Nirmala UI"/>
             </StackPanel>
         </GroupBox>
 
-        <!-- Кнопки -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="ConfirmOrderButton" Content="Оформить заказ" 
                     Width="200" Height="50" FontSize="18" FontWeight="Bold"
-                    Background="#FF2E7D32" Foreground="White" 
-                    Click="ConfirmOrderButton_Click" Margin="15"/>
+                    Background="White" Foreground="Black" 
+                    Click="ConfirmOrderButton_Click" Margin="15" FontFamily="Nirmala UI"/>
             <Button x:Name="BackButton" Content="Вернуться в корзину" 
                     Width="200" Height="50" FontSize="18"
-                    Background="#FF757575" Foreground="White" 
-                    Click="BackButton_Click" Margin="15"/>
+                    Background="White" Foreground="Black" 
+                    Click="BackButton_Click" Margin="15" FontWeight="Bold" FontFamily="Nirmala UI"/>
         </StackPanel>
     </Grid>
 </Page>

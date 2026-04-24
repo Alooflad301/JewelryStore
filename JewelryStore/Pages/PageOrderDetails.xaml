@@ -7,37 +7,34 @@
       mc:Ignorable="d" 
        d:DesignHeight="500" d:DesignWidth="900">
 
-    <Grid Margin="20" Background="#FFAFAFAF">
+    <Grid Background="#FF139C00">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="853"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Заголовок заказа -->
             <RowDefinition Height="*"/>
-            <!-- Товары -->
             <RowDefinition Height="Auto"/>
             <!-- Итог -->
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBlock x:Name="tbOrderNumber" Text="#1" FontSize="28" FontWeight="Bold"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20" Grid.ColumnSpan="2" Background="#FF129600">
+            <TextBlock x:Name="tbOrderNumber" Text="#1" FontSize="28" FontWeight="Bold" Margin="10" FontFamily="Nirmala UI"/>
             <Button Content="Назад" Width="100" Height="35" Margin="20,0,0,0" FontSize="20" 
-                    Click="BackButton_Click"/>
+                    Click="BackButton_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
         </StackPanel>
 
-        <!-- Товары заказа -->
-        <ListView Grid.Row="1" x:Name="listOrderItems" Margin="0,0,0,20">
+        <ListView x:Name="listOrderItems" Margin="0,57,0,57" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="White">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300"/>
-                            <!-- Название -->
                             <ColumnDefinition Width="*"/>
-                            <!-- Тип -->
                             <ColumnDefinition Width="80"/>
-                            <!-- Кол-во -->
                             <ColumnDefinition Width="120"/>
-                            <!-- Цена -->
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding Jewelry.NameJewelry}" FontSize="16" FontWeight="SemiBold"/>
                         <TextBlock Grid.Column="1" Text="{Binding JewelryTip.NameJewelryTip}" FontSize="14"/>
@@ -47,7 +44,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock Grid.Row="2" x:Name="tbOrderTotal" Text="Итого: 0 руб." 
-                   FontSize="24" FontWeight="Bold" HorizontalAlignment="Right"/>
+        <TextBlock Grid.Row="1" x:Name="tbOrderTotal" Text="Итого: 0 руб." 
+                   FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Grid.Column="1"  Grid.RowSpan="2" FontFamily="Nirmala UI"/>
     </Grid>
 </Page>

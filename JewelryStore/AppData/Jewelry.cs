@@ -44,7 +44,6 @@ namespace JewelryStore.AppData
                 }
             }
         }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItem { get; set; }
         public virtual JewelryTip JewelryTip { get; set; }

@@ -5,14 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JewelryStore.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1350"
+      d:DesignHeight="700" d:DesignWidth="1350"
       Title="PageJewelryCatalog" Loaded="Jc">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -25,30 +25,24 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="ComboFilter" Grid.Column="0" Margin="5" Height="26"  SelectionChanged="ComboFilter_SelectionChanged"/>
-            <ComboBox x:Name="ComdoSort" Grid.Column="1"  Margin="5" VerticalAlignment="Center" Height="26" SelectionChanged="ComdoSort_SelectionChanged"/>
-            <ComboBox x:Name="ComdoMat" Grid.Column="2" Margin="5" VerticalAlignment="Center" Height="26" SelectionChanged="ComdoMat_SelectionChanged"/>
-            <ComboBox x:Name="ComdoStone" Grid.Column="3"  Margin="5" VerticalAlignment="Center"  Height="26" SelectionChanged="ComdoStone_SelectionChanged"/>
-            <ComboBox x:Name="ComdoSup" Grid.Column="4" Margin="5" VerticalAlignment="Center"  Height="26" SelectionChanged="ComdoSup_SelectionChanged"/>
-            <TextBox x:Name="TextSearch" Grid.Column="5" Margin="5" TextWrapping="Wrap"  Height="26" TextChanged="TextSearch_TextChanged"/>
-            <Button x:Name="SbrosBut" Grid.Column="6" Margin="5,0,20,0" Content="Сброс" Height="26" Click="SbrosBut_Click"/>
+            <ComboBox x:Name="ComboFilter" Grid.Column="0" Margin="5" Height="26"  SelectionChanged="ComboFilter_SelectionChanged" FontFamily="Nirmala UI"/>
+            <ComboBox x:Name="ComdoSort" Grid.Column="1"  Margin="5" VerticalAlignment="Center" Height="26" SelectionChanged="ComdoSort_SelectionChanged" FontFamily="Nirmala UI"/>
+            <ComboBox x:Name="ComdoMat" Grid.Column="2" Margin="5" VerticalAlignment="Center" Height="26" SelectionChanged="ComdoMat_SelectionChanged" FontFamily="Nirmala UI"/>
+            <ComboBox x:Name="ComdoStone" Grid.Column="3"  Margin="5" VerticalAlignment="Center"  Height="26" SelectionChanged="ComdoStone_SelectionChanged" FontFamily="Nirmala UI"/>
+            <ComboBox x:Name="ComdoSup" Grid.Column="4" Margin="5" VerticalAlignment="Center"  Height="26" SelectionChanged="ComdoSup_SelectionChanged" FontFamily="Nirmala UI"/>
+            <TextBox x:Name="TextSearch" Grid.Column="5" Margin="5" TextWrapping="Wrap"  Height="26" TextChanged="TextSearch_TextChanged" FontFamily="Nirmala UI"/>
+            <Button x:Name="SbrosBut" Grid.Column="6" Margin="5,0,20,0" Content="Сброс" Height="26" Click="SbrosBut_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI" FontSize="16"/>
         </Grid>
-        <ListView Grid.Row="1" x:Name="listProduct" Margin="5,0,20,0">
-            <ListView.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="#FFCACACA" Offset="0"/>
-                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
-                </RadialGradientBrush>
-            </ListView.Background>
+        <ListView Grid.Row="1" x:Name="listProduct" Margin="5,0,20,0" Background="White">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
                             <Border
                             Width="200"
@@ -58,17 +52,19 @@
                             Grid.Column="0">
                                 <Image Source="{Binding CurrentPhoto}" Stretch="UniformToFill"/>
                             </Border>
-                            <StackPanel  Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
+                            <StackPanel  Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="0,0,20,0">
                                 <TextBlock  Height="auto" Text="{Binding NameJewelry}"/>
                                 <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,20">
                             <Run Text="Категория укарашения: "/>
                              <Run Text="{Binding JewelryTip.NameJewelryTip}"/>
 
                                 </TextBlock>
-                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,20">
-                                    <Run Text="Материал: "/>
-                                    <Run Text="{Binding Material.NameMaterial}"/>
-
+                                <TextBlock TextWrapping="Wrap" Height="auto" Margin="0,0,0,20">
+    <Run Text="Материал: "/>
+    <Run Text="{Binding Material.NameMaterial}"/>
+    <Run Text=" ("/>
+    <Run Text="{Binding Material.Proba}"/>
+    <Run Text=")"/>
                                 </TextBlock>
                                 <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,10">
                                     <Run Text="Камень: "/>
@@ -81,7 +77,7 @@
                                 </TextBlock>
                             </StackPanel>
                             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="0,0,0,10">
+                                <TextBlock TextWrapping="Wrap"  Height="auto" Margin="100">
                                             <Run Text="Цена: "/>
                                             <Run Text="{Binding PriceJewelry}"/>
                                             <Run Text=" руб."/>
@@ -97,25 +93,22 @@
         </ListView>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="tbCounter" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
-            <Button x:Name="CartBut" Grid.Column="1" Margin="5" FontSize="18" Content="Корзина" Height="30" Click="CartBut_Click"/>
-            <Button Grid.Column="2" Margin="5" FontSize="18" Content="Заказы" Height="30" Click="Button_Click"/>
-            <Button Grid.Column="3" FontSize="18" x:Name="AdminPanelBottun"  HorizontalAlignment="Right" Content="Панель администратора" Height="30" Margin="0,0,20,0" Loaded="AdminPanelBottun_Loaded" Click="AdminPanelBottun_Click"/>
+            <TextBlock x:Name="tbCounter" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Foreground="Black" FontSize="18" FontFamily="Nirmala UI" FontWeight="Bold"/>
+            <Button x:Name="CartBut" Grid.Column="1" Margin="5" FontSize="18" Content="Корзина" Height="30" Click="CartBut_Click" Background="White" FontFamily="Nirmala UI" FontWeight="Bold"/>
+            <Button x:Name="OrderBut" Grid.Column="2" Margin="5" FontSize="18" Content="Заказы" Height="30" Click="Button_Click" Background="White" FontWeight="Bold" FontFamily="Nirmala UI"/>
+            <Button Grid.Column="3" FontSize="18" x:Name="AdminPanelBottun"  HorizontalAlignment="Right" Content=" Панель администратора " Height="30" Margin="0,0,20,0" Loaded="AdminPanelBottun_Loaded" Click="AdminPanelBottun_Click" Background="White" FontFamily="Nirmala UI" FontWeight="Bold"/>
         </Grid>
 
         <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#FFD41891" Offset="0"/>
-                <GradientStop Color="#FF421A56" Offset="1"/>
-                <GradientStop Color="#FFAF0000" Offset="2"/>
-                <GradientStop Color="#FFC11C02" Offset="2"/>
-                <GradientStop Color="#FFFF0404" Offset="4"/>
-            </RadialGradientBrush>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
         </Grid.Background>
     </Grid>
 </Page>

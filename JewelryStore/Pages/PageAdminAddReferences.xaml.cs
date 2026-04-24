@@ -13,11 +13,47 @@ namespace JewelryStore.Pages
         public PageAdminAddReferences()
         {
             InitializeComponent();
-            if (!CurrentUser.IsAdmin)
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!AppData.CurrentUser.IsAdmin)
             {
                 MessageBox.Show("Доступ только для админов!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                AppFrame.framemain.GoBack();
                 return;
             }
+
+            LoadJewelryTipList();
+            LoadMaterialList();
+            LoadStoneList();
+            LoadSupplierList();
+            LoadStatusOrderList();
+        }
+
+        private void LoadJewelryTipList()
+        {
+            listJewelryTip.ItemsSource = db.JewelryTip.ToList();
+        }
+
+        private void LoadMaterialList()
+        {
+            listMaterial.ItemsSource = db.Material.ToList();
+        }
+
+        private void LoadStoneList()
+        {
+            listStone.ItemsSource = db.Stone.ToList();
+        }
+
+        private void LoadSupplierList()
+        {
+            listSupplier.ItemsSource = db.Supplier.ToList();
+        }
+
+        private void LoadStatusOrderList()
+        {
+            listStatusOrder.ItemsSource = db.StatusOrder.ToList();
         }
 
         private void AddJewelryTip_Click(object sender, RoutedEventArgs e)
@@ -25,16 +61,31 @@ namespace JewelryStore.Pages
             if (string.IsNullOrWhiteSpace(TipNameTxt.Text))
             {
                 MessageBox.Show("Введите название типа!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TipNameTxt.Focus();
+                TipNameTxt.SelectAll();
+                return;
+            }
+
+            if (TipNameTxt.Text.Length < 2)
+            {
+                MessageBox.Show("Название типа должно содержать не менее 2 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TipNameTxt.Focus();
                 return;
             }
 
             try
             {
-                db.JewelryTip.Add(new JewelryTip { NameJewelryTip = TipNameTxt.Text.Trim() });
+                db.JewelryTip.Add(new JewelryTip
+                {
+                    NameJewelryTip = TipNameTxt.Text.Trim()
+                });
+
                 db.SaveChanges();
-                MessageBox.Show("Тип украшения добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadJewelryTipList();
+
                 TipNameTxt.Clear();
                 TipNameTxt.Focus();
+                MessageBox.Show("✅ Тип украшения добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -44,9 +95,25 @@ namespace JewelryStore.Pages
 
         private void AddMaterial_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(MatNameTxt.Text) || !int.TryParse(MatProbaTxt.Text, out int proba))
+            if (string.IsNullOrWhiteSpace(MatNameTxt.Text))
             {
-                MessageBox.Show("Введите название материала и пробу (число)!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Введите название материала!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MatNameTxt.Focus();
+                return;
+            }
+
+            if (!int.TryParse(MatProbaTxt.Text, out int proba) || proba <= 0 || proba > 9999)
+            {
+                MessageBox.Show("Введите корректную пробу (целое число от 1 до 9999)!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MatProbaTxt.Focus();
+                MatProbaTxt.SelectAll();
+                return;
+            }
+
+            if (MatNameTxt.Text.Length < 2)
+            {
+                MessageBox.Show("Название материала должно содержать не менее 2 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MatNameTxt.Focus();
                 return;
             }
 
@@ -57,11 +124,14 @@ namespace JewelryStore.Pages
                     NameMaterial = MatNameTxt.Text.Trim(),
                     Proba = proba
                 });
+
                 db.SaveChanges();
-                MessageBox.Show($"Материал '{MatNameTxt.Text.Trim()} ({proba})' добавлен!", "Успех");
+                LoadMaterialList();
+
                 MatNameTxt.Clear();
                 MatProbaTxt.Clear();
                 MatNameTxt.Focus();
+                MessageBox.Show($"✅ Материал '{MatNameTxt.Text.Trim()} ({proba})' добавлен!", "Успех");
             }
             catch (Exception ex)
             {
@@ -71,9 +141,25 @@ namespace JewelryStore.Pages
 
         private void AddStone_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(StoneNameTxt.Text) || !double.TryParse(StoneWeightTxt.Text, out double weight))
+            if (string.IsNullOrWhiteSpace(StoneNameTxt.Text))
             {
-                MessageBox.Show("Введите название камня и вес (число)!", "Ошибка");
+                MessageBox.Show("Введите название камня!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                StoneNameTxt.Focus();
+                return;
+            }
+
+            if (!double.TryParse(StoneWeightTxt.Text, out double weight) || weight <= 0 || weight > 1000)
+            {
+                MessageBox.Show("Введите корректный вес камня (число от 0.01 до 1000)!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                StoneWeightTxt.Focus();
+                StoneWeightTxt.SelectAll();
+                return;
+            }
+
+            if (StoneNameTxt.Text.Length < 2)
+            {
+                MessageBox.Show("Название камня должно содержать не менее 2 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                StoneNameTxt.Focus();
                 return;
             }
 
@@ -82,15 +168,18 @@ namespace JewelryStore.Pages
                 db.Stone.Add(new Stone
                 {
                     NameStone = StoneNameTxt.Text.Trim(),
-                    ColorStone = StoneColorTxt.Text.Trim(),
+                    ColorStone = StoneColorTxt.Text?.Trim(),
                     WeightStone = weight
                 });
+
                 db.SaveChanges();
-                MessageBox.Show("Камень добавлен!", "Успех");
+                LoadStoneList();
+
                 StoneNameTxt.Clear();
                 StoneColorTxt.Clear();
                 StoneWeightTxt.Clear();
                 StoneNameTxt.Focus();
+                MessageBox.Show("✅ Камень добавлен!", "Успех");
             }
             catch (Exception ex)
             {
@@ -102,7 +191,33 @@ namespace JewelryStore.Pages
         {
             if (string.IsNullOrWhiteSpace(SuppNameTxt.Text))
             {
-                MessageBox.Show("Введите название поставщика!", "Ошибка");
+                MessageBox.Show("Введите название поставщика!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SuppNameTxt.Focus();
+                return;
+            }
+
+            if (SuppPhoneTxt.Text?.Length > 0)
+            {
+                string phoneClean = SuppPhoneTxt.Text.Replace(" ", "").Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
+                if (phoneClean.Length < 10 || phoneClean.Length > 15 || !phoneClean.All(char.IsDigit))
+                {
+                    MessageBox.Show("Введите корректный телефон (минимум 10 цифр).", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SuppPhoneTxt.Focus();
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(SuppEmailTxt.Text) && !IsValidEmail(SuppEmailTxt.Text))
+            {
+                MessageBox.Show("Введите корректный e‑mail адрес.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SuppEmailTxt.Focus();
+                return;
+            }
+
+            if (SuppNameTxt.Text.Length < 2)
+            {
+                MessageBox.Show("Название поставщика должно содержать не менее 2 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SuppNameTxt.Focus();
                 return;
             }
 
@@ -111,37 +226,53 @@ namespace JewelryStore.Pages
                 db.Supplier.Add(new Supplier
                 {
                     NameSupplier = SuppNameTxt.Text.Trim(),
-                    PhoneSupplier = SuppPhoneTxt.Text.Trim(),
-                    EmailSupplier = SuppEmailTxt.Text.Trim()
+                    PhoneSupplier = SuppPhoneTxt.Text?.Trim(),
+                    EmailSupplier = SuppEmailTxt.Text?.Trim()
                 });
+
                 db.SaveChanges();
-                MessageBox.Show("Поставщик добавлен!", "Успех");
+                LoadSupplierList();
+
                 SuppNameTxt.Clear();
                 SuppPhoneTxt.Clear();
                 SuppEmailTxt.Clear();
                 SuppNameTxt.Focus();
+                MessageBox.Show("✅ Поставщик добавлен!", "Успех");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка добавления: " + ex.Message);
             }
         }
-
         private void AddStatusOrder_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(StatusNameTxt.Text))
             {
-                MessageBox.Show("Введите название статуса!", "Ошибка");
+                MessageBox.Show("Введите название статуса!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                StatusNameTxt.Focus();
+                return;
+            }
+
+            if (StatusNameTxt.Text.Length < 2)
+            {
+                MessageBox.Show("Название статуса должно содержать не менее 2 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                StatusNameTxt.Focus();
                 return;
             }
 
             try
             {
-                db.StatusOrder.Add(new StatusOrder { NameStatusOrder = StatusNameTxt.Text.Trim() });
+                db.StatusOrder.Add(new StatusOrder
+                {
+                    NameStatusOrder = StatusNameTxt.Text.Trim()
+                });
+
                 db.SaveChanges();
-                MessageBox.Show("Статус заказа добавлен!", "Успех");
+                LoadStatusOrderList();
+
                 StatusNameTxt.Clear();
                 StatusNameTxt.Focus();
+                MessageBox.Show("✅ Статус заказа добавлен!", "Успех");
             }
             catch (Exception ex)
             {
@@ -149,19 +280,16 @@ namespace JewelryStore.Pages
             }
         }
 
-        private void RefreshAll_Click(object sender, RoutedEventArgs e)
+        private bool IsValidEmail(string email)
         {
+            if (string.IsNullOrWhiteSpace(email)) return false;
             try
             {
-                db.Dispose();
-                db = new JewelryStoreEntities();
-                AppConnect.model0db = db; // Обновляем глобальный контекст
-                MessageBox.Show("Контекст обновлён! Все изменения видны в других страницах.", "Обновлено");
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка обновления: " + ex.Message);
-            }
+            catch { return false; }
         }
+
     }
 }

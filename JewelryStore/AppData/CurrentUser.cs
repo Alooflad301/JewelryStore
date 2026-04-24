@@ -68,8 +68,7 @@ namespace JewelryStore.AppData
             }
         }
 
-        // ИТОГОВАЯ ЦЕНА (decimal для PriceJewelry)
-        public static decimal GetTotalPrice()  // ← ОДИН метод!
+        public static decimal GetTotalPrice()
         {
             using (var db = GetNewContext())
             {
@@ -95,7 +94,6 @@ namespace JewelryStore.AppData
             }
         }
 
-        // Очистить корзину
         public static void Clear()
         {
             using (var db = GetNewContext())
@@ -112,11 +110,9 @@ namespace JewelryStore.AppData
                 var item = db.CartItem.Find(cartItemId);
                 if (item == null) return;
 
-                // Явно разыменовываем nullable
                 int currentQty = item.Quantity ?? 1;
                 int newQty = currentQty + delta;
 
-                // Math.Min с int (НЕ int?)
                 item.Quantity = Math.Min(99, Math.Max(1, newQty));
 
                 db.SaveChanges();
