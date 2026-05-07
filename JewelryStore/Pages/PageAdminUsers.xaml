@@ -7,16 +7,22 @@
        d:DesignHeight="450" d:DesignWidth="800"
       Title="PageAdminUsers">
 
-    <Grid Background="#FF4E9440">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF64FB82"/>
+                <GradientStop Color="#FF54A564" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Управление пользователями" FontSize="24" HorizontalAlignment="Center" Margin="10"/>
+        <TextBlock Grid.Row="0" Text="Управление пользователями" FontSize="24" HorizontalAlignment="Center" Margin="10" FontWeight="Bold" FontFamily="Nirmala UI"/>
 
-        <DataGrid Grid.Row="1" x:Name="UsersGrid" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" BeginningEdit="UsersGrid_BeginningEdit" CellEditEnding="UsersGrid_CellEditEnding" IsReadOnly="False" SelectionMode="Single" >
+        <DataGrid Grid.Row="1" x:Name="UsersGrid" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" BeginningEdit="UsersGrid_BeginningEdit" CellEditEnding="UsersGrid_CellEditEnding" IsReadOnly="False" SelectionMode="Single" Background="White" FontFamily="Nirmala UI" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding IdUser}" Width="50" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="120"/>
@@ -41,9 +47,9 @@
         </DataGrid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button x:Name="RefreshBtn" Content="Обновить" Click="Refresh_Click" Margin="5" Padding="15,5" Height="34"/>
-            <Button x:Name="SaveBtn" Content="Сохранить изменения" Click="Save_Click" Margin="5" Padding="15,5" Height="34"/>
-            <Button x:Name="DeleteBtn" Content="Удалить выбранного" Click="Delete_Click" Margin="5" Padding="15,5" Height="34"/>
+            <Button x:Name="RefreshBtn" Content="Обновить" Click="Refresh_Click" Margin="5" Padding="15,5" Height="34" Background="White" FontWeight="Bold" FontSize="16" FontFamily="Nirmala UI"/>
+            <Button x:Name="SaveBtn" Content="Сохранить изменения" Click="Save_Click" Margin="5" Padding="15,5" Height="34" Background="White" FontWeight="Bold" FontSize="16" FontFamily="Nirmala UI"/>
+            <Button x:Name="DeleteBtn" Content="Удалить выбранного" Click="Delete_Click" Margin="5" Padding="15,5" Height="34" Background="White" FontWeight="Bold" FontSize="16" FontFamily="Nirmala UI"/>
         </StackPanel>
     </Grid>
 </Page>

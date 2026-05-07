@@ -27,6 +27,7 @@ namespace JewelryStore.Pages
             listProduct.ItemsSource = AppConnect.model0db.Jewelry.ToList();
             Fill();
             this.Loaded += Jc;
+            CheckOrdersButtonState();
         }
         public void Fill()
         {
@@ -34,35 +35,41 @@ namespace JewelryStore.Pages
             ComdoSort.Items.Add("По возрастанию цены");
             ComdoSort.Items.Add("По убыванию цены");
             ComdoSort.SelectedIndex = 0;
-            ComboFilter.SelectedIndex = 0;
-            var category = AppConnect.model0db.JewelryTip;
             ComboFilter.Items.Add("Тип украшения");
-            foreach (var c in category)
+
+            var jewelryTips = AppConnect.model0db.JewelryTip.ToList();
+            foreach (var tip in jewelryTips)
             {
-                ComboFilter.Items.Add(c.NameJewelryTip);
+                ComboFilter.Items.Add(tip.NameJewelryTip);
             }
-            ComdoMat.SelectedIndex = 0;
-            var categorya = AppConnect.model0db.Material;
-            ComdoMat.Items.Add("Тип Материала");
-            foreach (var a in categorya)
+
+            ComdoMat.Items.Add("Тип материала");
+
+            var materials = AppConnect.model0db.Material.ToList();
+            foreach (var mat in materials)
             {
-                ComdoMat.Items.Add($"{a.NameMaterial}({a.Proba})");
+                ComdoMat.Items.Add($"{mat.NameMaterial} ({mat.Proba})");
             }
-            ComdoStone.SelectedIndex = 0;
-            var categoryb = AppConnect.model0db.Stone;
-            ComdoStone.Items.Add("Тип Камня");
-            foreach (var b in categoryb)
+
+            ComdoStone.Items.Add("Тип камня");
+
+            var stones = AppConnect.model0db.Stone.ToList();
+            foreach (var stone in stones)
             {
-                ComdoStone.Items.Add(b.NameStone);
+                ComdoStone.Items.Add(stone.NameStone);
             }
-            ComdoSup.SelectedIndex = 0;
-            var categorys = AppConnect.model0db.Supplier;
+
             ComdoSup.Items.Add("Бренд");
-            foreach (var s in categorys)
+
+            var suppliers = AppConnect.model0db.Supplier.ToList();
+            foreach (var sup in suppliers)
             {
-                ComdoSup.Items.Add(s.NameSupplier);
+                ComdoSup.Items.Add(sup.NameSupplier);
             }
+
+            Sbros();
         }
+
         public void Sbros()
         {
             ComdoSort.SelectedIndex = 0;
@@ -291,7 +298,8 @@ namespace JewelryStore.Pages
             if (Window.GetWindow(this) is Window window)
             {
                 this.MinWidth = 1350;
-                this.MinHeight = 450;
+                this.MinHeight = 700;
+                CheckOrdersButtonState();
             }
         }
 
@@ -299,6 +307,7 @@ namespace JewelryStore.Pages
         {
             Sbros();
         }
+
 
         private void AdminPanelBottun_Loaded(object sender, RoutedEventArgs e)
         {
@@ -331,6 +340,21 @@ namespace JewelryStore.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.Navigate(new PageUserOrders());
+        }
+
+        private void CheckOrdersButtonState()
+        {
+            bool hasOrders = false;
+
+            if (CurrentUser.IdUser.HasValue)
+            {
+                using (var db = ShoppingCart.GetNewContext())
+                {
+                    hasOrders = db.Order.Any(o => o.IdUser == CurrentUser.IdUser);
+                }
+            }
+            OrderBut.IsEnabled = hasOrders;
+            OrderBut.Opacity = hasOrders ? 1.0 : 0.5;
         }
     }
 }

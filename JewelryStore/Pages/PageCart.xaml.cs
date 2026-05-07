@@ -25,8 +25,13 @@ namespace JewelryStore.Pages
         {
             InitializeComponent();
             Loaded += PageCart_Loaded;
+            UpdateButtonsState();
         }
-
+        private void UpdateButtonsState()
+        {
+            bool hasItems = ShoppingCart.GetItems().Any();
+            CheckoutButton.IsEnabled = hasItems;
+        }
         private void PageCart_Loaded(object sender, RoutedEventArgs e)
         {
             LoadCart();
@@ -63,6 +68,7 @@ namespace JewelryStore.Pages
             {
                 ShoppingCart.RemoveItem(id);
                 LoadCart();
+                UpdateButtonsState();
             }
         }
 
@@ -74,6 +80,11 @@ namespace JewelryStore.Pages
         private void CatalogResButton_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.framemain.Navigate(new PageJewelryCatalog());
+        }
+
+        private void listCart_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

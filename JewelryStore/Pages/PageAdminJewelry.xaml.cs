@@ -73,19 +73,41 @@ namespace JewelryStore.Pages
                 var result = MessageBox.Show($"Удалить товар '{selectedJewelry.NameJewelry}'?",
                     "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                if (result == MessageBoxResult.Yes)
+                if (result != MessageBoxResult.Yes)
+                    return;
+
+                try
                 {
-                    try
+                    using (var db = new JewelryStoreEntities())
                     {
-                        AppData.AppConnect.model0db.Jewelry.Remove(selectedJewelry);
-                        AppData.AppConnect.model0db.SaveChanges();
-                        LoadJewelryList();
-                        MessageBox.Show("Товар удален!");
+                        bool hasOrders = db.OrderItem.Any(o => o.IdJewelry == selectedJewelry.IdJewelry);
+                        if (hasOrders)
+                        {
+                            MessageBox.Show("Нельзя удалить товар, он присутствует в заказах.",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+
+                        var jewelryToDelete = db.Jewelry.Find(selectedJewelry.IdJewelry);
+                        if (jewelryToDelete == null)
+                        {
+                            MessageBox.Show("Товар не найден в базе данных.",
+                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+
+                        db.Jewelry.Remove(jewelryToDelete);
+                        db.SaveChanges();
+
+                        MessageBox.Show("✅ Товар удален!");
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Ошибка удаления: {ex.Message}");
-                    }
+
+                    LoadJewelryList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка удаления: {ex.Message}\nInner: {ex.InnerException?.Message}",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

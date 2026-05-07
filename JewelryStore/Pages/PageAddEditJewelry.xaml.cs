@@ -5,13 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace JewelryStore.Pages
 {
     public partial class PageAddEditJewelry : Page
     {
-        public Jewelry JewelryToEdit { get; set; }
+        public Jewelry JewelryToEdit { get; set; } 
 
         public PageAddEditJewelry()
         {
@@ -30,13 +29,14 @@ namespace JewelryStore.Pages
 
             if (JewelryToEdit != null)
             {
-                NameJewelryText.Text = JewelryToEdit.NameJewelry;
+                NameJewelryText.Text = JewelryToEdit.NameJewelry?.Trim();
                 JewelryTipCombo.SelectedValue = JewelryToEdit.IdJewelryTip;
                 MaterialCombo.SelectedValue = JewelryToEdit.IdMaterial;
                 StoneCombo.SelectedValue = JewelryToEdit.IdStone;
                 SupplierCombo.SelectedValue = JewelryToEdit.IdSupplier;
-                PriceText.Text = JewelryToEdit.PriceJewelry?.ToString();
-                ImagePathText.Text = JewelryToEdit.ImagePath;
+                PriceText.Text = JewelryToEdit.PriceJewelry?.ToString("0.00");
+                ImagePathText.Text = JewelryToEdit.ImagePath?.Trim();
+
                 SaveButton.Content = "✏️ Обновить";
                 LoadImagePreview();
             }
@@ -48,106 +48,135 @@ namespace JewelryStore.Pages
 
         private void LoadComboBoxes()
         {
-            JewelryTipCombo.ItemsSource = AppConnect.model0db.JewelryTip.ToList();
-            MaterialCombo.ItemsSource = AppConnect.model0db.Material.ToList();
-            StoneCombo.ItemsSource = AppConnect.model0db.Stone.ToList();
-            SupplierCombo.ItemsSource = AppConnect.model0db.Supplier.ToList();
+            try
+            {
+                using (var db = new JewelryStoreEntities())
+                {
+                    JewelryTipCombo.ItemsSource = db.JewelryTip.ToList();
+                    MaterialCombo.ItemsSource = db.Material.ToList();
+                    StoneCombo.ItemsSource = db.Stone.ToList();
+                    SupplierCombo.ItemsSource = db.Supplier.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void LoadImagePreview()
         {
-            if (!string.IsNullOrEmpty(ImagePathText.Text))
+            if (!string.IsNullOrWhiteSpace(ImagePathText.Text))
             {
-                string projectImagesFolder = GetProjectImagesFolder();
-                string imagePath = Path.Combine(projectImagesFolder, Path.GetFileName(ImagePathText.Text));
+                string projectImagesFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Images"));
+                string imagePath = Path.Combine(projectImagesFolder, ImagePathText.Text.Trim());
 
-                if (File.Exists(imagePath))
+                try
                 {
-                    ImagePreview.Source = new BitmapImage(new Uri(imagePath));
+                    if (File.Exists(imagePath))
+                    {
+                        ImagePreview.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(imagePath));
+                    }
+                }
+                catch
+                {
                 }
             }
-        }
-
-        private string GetProjectImagesFolder()
-        {
-            // Динамический путь к Images в папке проекта (3 уровня вверх от bin/Debug)
-            return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Images"));
         }
 
         private void SelectImageBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp;*.gif",
-                Title = "Выберите изображение"
+                Filter = "Изображения (*.jpg;*.jpeg;*.png;*.bmp;*.gif)|*.jpg;*.jpeg;*.png;*.bmp;*.gif",
+                Title = "Выберите изображение товара"
             };
 
             if (openFileDialog.ShowDialog() == true)
             {
                 try
                 {
-                    string projectImagesFolder = GetProjectImagesFolder();
+                    string projectImagesFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Images"));
                     Directory.CreateDirectory(projectImagesFolder);
 
-                    string fileName = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                    string fileExt = Path.GetExtension(openFileDialog.FileName);
-                    string newFileName = fileName + fileExt;
-                    int counter = 1;
+                    string fileName = Path.GetFileName(openFileDialog.FileName);      
+                    string filePathInImages = Path.Combine(projectImagesFolder, fileName);
 
-                    // Уникальное имя
-                    while (File.Exists(Path.Combine(projectImagesFolder, newFileName)))
+                    if (!File.Exists(filePathInImages))
                     {
-                        newFileName = $"{fileName}_{counter++}{fileExt}";
+                        File.Copy(openFileDialog.FileName, filePathInImages, overwrite: true);
                     }
+                    ImagePathText.Text = fileName;
+                    ImagePreview.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(filePathInImages));
 
-                    string targetPath = Path.Combine(projectImagesFolder, newFileName);
-                    File.Copy(openFileDialog.FileName, targetPath, true);
-
-                    ImagePathText.Text = $"{newFileName}";
-                    ImagePreview.Source = new BitmapImage(new Uri(targetPath));
-
-                    MessageBox.Show($"Изображение сохранено:\n{targetPath}", "Готово!");
+                    MessageBox.Show($"Изображение готово: {fileName}", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка: {ex.Message}");
+                    MessageBox.Show($"Ошибка сохранения изображения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(NameJewelryText.Text))
+            {
+                MessageBox.Show("Введите название товара.");
+                return;
+            }
+
+            if (!decimal.TryParse(PriceText.Text, out decimal price) || price <= 0)
+            {
+                MessageBox.Show("Введите корректную цену.");
+                return;
+            }
+
             try
             {
-                Jewelry jewelry;
-
-                if (JewelryToEdit == null)
+                using (var db = new JewelryStoreEntities())
                 {
-                    jewelry = new Jewelry();
-                    AppConnect.model0db.Jewelry.Add(jewelry);
+                    Jewelry jewelry;
+
+                    if (JewelryToEdit == null)
+                    {
+                        jewelry = new Jewelry();
+                        db.Jewelry.Add(jewelry);
+                    }
+                    else
+                    {
+                        int id = JewelryToEdit.IdJewelry;
+                        jewelry = db.Jewelry.FirstOrDefault(x => x.IdJewelry == id);
+
+                        if (jewelry == null)
+                        {
+                            MessageBox.Show("Товар не найден в базе данных.");
+                            return;
+                        }
+                    }
+
+                    jewelry.NameJewelry = NameJewelryText.Text.Trim();
+                    jewelry.IdJewelryTip = (int)JewelryTipCombo.SelectedValue;
+                    jewelry.IdMaterial = (int)MaterialCombo.SelectedValue;
+                    jewelry.IdStone = StoneCombo.SelectedValue as int?;
+                    jewelry.IdSupplier = (int)SupplierCombo.SelectedValue;
+                    jewelry.PriceJewelry = price;
+                    jewelry.ImagePath = !string.IsNullOrWhiteSpace(ImagePathText.Text)
+                        ? ImagePathText.Text.Trim()
+                        : null;
+
+                    db.SaveChanges();
+
+                    AppData.AppConnect.model0db.Entry(JewelryToEdit).CurrentValues.SetValues(jewelry);
+
+                    MessageBox.Show(JewelryToEdit == null ? "🛒 Товар добавлен!" : "✅ Товар обновлён!");
                 }
-                else
-                {
-                    jewelry = JewelryToEdit;
-                }
-
-                jewelry.NameJewelry = NameJewelryText.Text?.Trim();
-                jewelry.IdJewelryTip = JewelryTipCombo.SelectedValue is int tipId ? tipId : 1;
-                jewelry.IdMaterial = MaterialCombo.SelectedValue is int matId ? matId : 1;
-                jewelry.IdStone = StoneCombo.SelectedValue as int?;
-                jewelry.IdSupplier = SupplierCombo.SelectedValue is int suppId ? suppId : 1;
-                jewelry.PriceJewelry = decimal.TryParse(PriceText.Text, out decimal price) ? price : 0m;
-                jewelry.ImagePath = ImagePathText.Text;
-
-                AppConnect.model0db.SaveChanges();
-
-                MessageBox.Show(JewelryToEdit == null ? "Товар добавлен!" : "Товар обновлён!");
-                AppFrame.framemain.Navigate(new PageAdminPanel());
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}");
+                MessageBox.Show("Ошибка сохранения: " + ex.Message);
             }
+
+            AppFrame.framemain.Navigate(new PageAdminPanel());
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
